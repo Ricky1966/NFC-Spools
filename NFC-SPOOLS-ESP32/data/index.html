@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP WEB SERVER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="topnav">
+      <h1>ESP WEB SERVER</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <p class="card-title"><i class="fas fa-tag"></i> NFC-Bobine features </p>
+          <p>
+            <a href="read1"><button class="button-off" allign ="center">READ 1</button></a>
+            <a href="read2"><button class="button-off" allign ="center">READ 2</button></a>
+            <a href="write"><button class="button-off" allign = "center">WRITE</button></a>
+            <br><br>
+            <a href="format"><button class="button-off" allign ="center">FORMAT</button></a>
+            <a href="erase"><button class="button-off"allign ="center">ERASE</button></a>
+            <a href="clear"><button class="button-off"allign ="center">CLEAR</button></a>
+          </p>
+          <br>
+          <p class="state">Action: %STATE%</p>
+      </div>
+      <div class="card">
+        <p class="card-title"><i class="fas fa-tag"></i> NFC-Bobine DATA </p>
+        <p class="state">Sensor n.: %SEN%</p>
+        <p class="state">UID : %UID%</p>
+        <p class="state">Material: %MAT%</p>
+        <p class="state">Color: %COL%</p>
+        <p class="state">Lenght: %LEN%</p>
+        <p class="state">Weith: %WEI%</p>
+        <p class="state">T Bed: %TBED%</p>
+        <p class="state">T Extrude: %TEXT%</p>
+        <p class="state">T First Layer Bed: %TFLB%</p>
+        <p class="state">T First Layer Extrude: %TFLE%</p>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class = "card">
+          <p>
+            <label>Update new Firmware</label>
+            <a href="update"><button class="button-on">UPDATE</button></a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="/script.js"></script>
+  </body>
+</html>
