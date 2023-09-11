@@ -15,22 +15,24 @@
 #define SS_PIN_1 4  // ESP32 pin GPIO5 
 
 #define RST_PIN 27 // ESP32 pin GPIO27 
-
+/*
 const char* mqtt_server = "192.168.1.101";
 const char* mqtt_user = "arduino_nano_esp32";
 const char* mqtt_passwd = "arduino_nano_esp32";
 const char* host = "esp32";
+*/
 // Search for parameter in HTTP POST request
 const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
 const char* PARAM_INPUT_3 = "ip";
 const char* PARAM_INPUT_4 = "gateway";
 // File paths to save input values permanently
+/*/
 const char* ssidPath = "/ssid.txt";
 const char* passPath = "/pass.txt";
 const char* ipPath = "/ip.txt";
 const char* gatewayPath = "/gateway.txt";
-
+*/
 String ssid;
 String pass;
 String ip;
@@ -38,8 +40,8 @@ String gateway;
 unsigned long previousMillis = 0;
 const long interval = 10000;  
 String functionCalled;
-int value = 0;
-int countMsg = 0;
+//int value = 0;
+//int countMsg = 0;
 char uid[30];
 String uid_str ;
 char tag_msg[100];
@@ -55,8 +57,8 @@ IPAddress localGateway;
 IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
-NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
-NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
+//NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
+//NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 
 String parser(int);
 bool tag_read(int);
@@ -208,6 +210,21 @@ void setup() {
 
     // Route for root / web page
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+      int paramsNr = request->params();
+    Serial.println(paramsNr);
+
+    for (int i = 0; i < paramsNr; i++)
+    {
+      AsyncWebParameter* p = request->getParam(i);
+      Serial.print("Param name: ");
+      Serial.println(p->name()); //function and sensor_n
+      
+      Serial.print("Param value: ");
+      Serial.println(p->value()); // read write erase formate clear and 1 2 3 4 
+      
+      Serial.println("------");
+      tag_read(1, mfrc522_1);
+    }
       request->send(LittleFS, "/index.html", "text/html", false, processor);
     });
     server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
@@ -247,7 +264,6 @@ void setup() {
       functionCalled = "CLEAR";
       request->send(LittleFS, "/index.html", "text/html", false, processor);
     });
-
     // Route JSON request
     server.on("/json1", HTTP_GET, [](AsyncWebServerRequest *request){
       tag_read(1);
@@ -325,8 +341,7 @@ void setup() {
   SPI.begin();    
   mfrc522_1.PCD_Init(); 
   mfrc522_2.PCD_Init();
-  nfc_1.begin();
-  nfc_2.begin();
+  
 }
 
 void loop() {
@@ -349,7 +364,11 @@ String parser(int sensor){
       return response;
 }
 
-bool tag_read(int sensor){
+bool tag_read(int sensor, MFRC522 &mfrc){
+  NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
+  NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
+  nfc_1.begin();
+  nfc_2.begin();
   Serial.print("TAG.......");
   Serial.println(sensor);
   switch (sensor)
