@@ -14,19 +14,30 @@
     <div class="content">
       <div class="card-grid">
         <div class="card">
-          <p class="card-title"><i class="fas fa-tag"></i> NFC-Bobine features </p>
+          <form>          
+            <p class="card-title"><i class="fas fa-tag"></i> NFC-Bobine features </p>
           <p>
-            <a href="read1"><button class="button-off" allign ="center">READ 1</button></a>
-            <a href="read2"><button class="button-off" allign ="center">READ 2</button></a>
-            <a href="write"><button class="button-off" allign = "center">WRITE</button></a>
+            <a href="read1"><button class="button-off" allign ="center"  name="function" value="read">READ</button></a>
+            <a href="write"><button class="button-off" allign = "center" name="function" value="write">WRITE</button></a>
             <br><br>
-            <a href="format"><button class="button-off" allign ="center">FORMAT</button></a>
-            <a href="erase"><button class="button-off"allign ="center">ERASE</button></a>
-            <a href="clear"><button class="button-off"allign ="center">CLEAR</button></a>
+            <a href="format"><button class="button-off" allign ="center" name="function" value="format">FORMAT</button></a>
+            <a href="erase"><button class="button-off" allign ="center"  name="function" value="erase">ERASE</button></a>
+            <a href="clear"><button class="button-off" allign ="center" name="function" value="clear">CLEAR</button></a>
           </p>
           <br>
           <p class="state">Action: %STATE%</p>
+            <p class="card-title">Please select your spool slot:</p>
+            <input type="radio" name="sensor_n" value="1" class="state" checked="checked" >
+            <label for="html">Slot 1</label><br>
+            <input type="radio" name="sensor_n" value="2" class="state">
+            <label for="html">Slot 2</label><br>
+            <input type="radio" name="sensor_n" value="3" class="state">
+            <label for="html">Slot 3</label><br>
+            <input type="radio" name="sensor_n" value="4" class="state">
+            <label for="html">Slot 4</label><br>
       </div>
+    </form>
+
       <div class="card">
         <p class="card-title"><i class="fas fa-tag"></i> NFC-Bobine DATA </p>
         <p class="state">Sensor n.: %SEN%</p>
