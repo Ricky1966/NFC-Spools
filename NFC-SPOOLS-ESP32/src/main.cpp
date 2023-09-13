@@ -5,34 +5,24 @@
 #include <AsyncElegantOTA.h>
 #include <LittleFS.h>
 #include <Preferences.h>
-//#include <PubSubClient.h>
 #include <MFRC522.h>
 #include <NfcAdapter.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
 
-#define SS_PIN_2 5 // ESP32 pin GPIO4
-#define SS_PIN_1 4  // ESP32 pin GPIO5 
-
+#define SS_PIN_1 4 // ESP32 pin GPIO4
+#define SS_PIN_2 5  // ESP32 pin GPIO5 
+#define SS_PIN_3 6 // ESP32 pin GPIO4
+#define SS_PIN_4 7  // ESP32 pin GPIO5
+#define MAX_SENSORS 4 //max number of sensors 
 #define RST_PIN 27 // ESP32 pin GPIO27 
-/*
-const char* mqtt_server = "192.168.1.101";
-const char* mqtt_user = "arduino_nano_esp32";
-const char* mqtt_passwd = "arduino_nano_esp32";
-const char* host = "esp32";
-*/
+const byte readersNum = 2;
+byte SS_Pins[readersNum] = {SS_PIN_1, SS_PIN_2};//, SS_PIN_3, SS_PIN_4};
 // Search for parameter in HTTP POST request
 const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
 const char* PARAM_INPUT_3 = "ip";
 const char* PARAM_INPUT_4 = "gateway";
-// File paths to save input values permanently
-/*/
-const char* ssidPath = "/ssid.txt";
-const char* passPath = "/pass.txt";
-const char* ipPath = "/ip.txt";
-const char* gatewayPath = "/gateway.txt";
-*/
 String ssid;
 String pass;
 String ip;
@@ -40,8 +30,6 @@ String gateway;
 unsigned long previousMillis = 0;
 const long interval = 10000;  
 String functionCalled;
-//int value = 0;
-//int countMsg = 0;
 char uid[30];
 String uid_str ;
 char tag_msg[100];
@@ -49,6 +37,7 @@ String tag_msg_str ;
 char wrt_msg[30];
 String wrt_msg_str ;
 String mat_type,mat_color,spool_lenght,spool_weigth,temp_bed,temp_ext,t_fl_b,t_fl_e;
+String function, sensor_n;
 
 AsyncWebServer server(80);
 Preferences preferences;
@@ -57,9 +46,10 @@ IPAddress localGateway;
 IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
-//NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
-//NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
-
+//MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
+//MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
+NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
+NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 String parser(int);
 bool tag_read(int);
 bool tag_write();
@@ -123,28 +113,11 @@ bool initWiFi() {
 }
 
 String processor(const String& var) {
-  if(var == "STATE") {
-    /*
-    if (functionCalled == "READ"){
-      Serial.println("Chiamata a READ");
-    } else if (functionCalled == "WRITE"){
-      Serial.println("Chiamata a WRITE");
-    } else if (functionCalled == "CLEAR"){
-      Serial.println("Chiamata a CLEAR");
-    } else if (functionCalled == "ERASE"){
-      Serial.println("Chiamata a ERASE");
-    } else if (functionCalled == "FORMAT"){
-      Serial.println("Chiamata a FORMAT");
-    }
-    return functionCalled;
-    */
-  }
   if(var == "UID"){
     Serial.print("UID : ");
     Serial.println(uid_str);
     return uid_str;
   }
-  
   if(var == "SEN"){
     if (functionCalled == "READ 1"){
       Serial.println("1");
@@ -154,7 +127,6 @@ String processor(const String& var) {
       Serial.println("2");
       return "2";
     } 
-    
   }
   if(var == "MAT"){
     Serial.println(mat_type);
@@ -216,69 +188,42 @@ void setup() {
     for (int i = 0; i < paramsNr; i++)
     {
       AsyncWebParameter* p = request->getParam(i);
-      Serial.print("Param name: ");
-      Serial.println(p->name()); //function and sensor_n
-      
-      Serial.print("Param value: ");
-      Serial.println(p->value()); // read write erase formate clear and 1 2 3 4 
-      
-      Serial.println("------");
-      tag_read(1, mfrc522_1);
+      if (p->name() == "function"){
+        function = p->value();
+        Serial.print("Param name: ");
+        Serial.println(function);
+      }
+      if (p->name() == "sensor_n"){
+        sensor_n = p->value();
+        Serial.print("Param name: ");
+        Serial.println(sensor_n);
+      }
+      if (function == "read"){
+        tag_read(sensor_n.toInt());
+      }
+      if (function == "write"){
+        //tag_read(sensor_n.toInt());
+      }
+      if (function == "clear"){
+        //tag_read(sensor_n.toInt());
+      }
+      if (function == "erase"){
+        //tag_read(sensor_n.toInt());
+      }
+      if (function == "format"){
+        //tag_read(sensor_n.toInt());
+      }
     }
       request->send(LittleFS, "/index.html", "text/html", false, processor);
     });
     server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
-    
-    // Route to set READ
-    server.on("/read1", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "READ 1";
-      tag_read(1);
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-
-    server.on("/read2", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "READ 2";
-      tag_read(2);
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-
-    // Route to set WRITE
-    server.on("/write", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "WRITE";
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-    // Route to set FORMAT
-    server.on("/format", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "FORMAT";
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-
-    // Route to set ERASE
-    server.on("/erase", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "ERASE";
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-
-    // Route to set CLEAR
-    server.on("/clear", HTTP_GET, [](AsyncWebServerRequest *request) {
-      functionCalled = "CLEAR";
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-    // Route JSON request
-    server.on("/json1", HTTP_GET, [](AsyncWebServerRequest *request){
-      tag_read(1);
-      String response = parser(1);
-      request->send(200, "application/json", response);
-    });
     // Route JSON request
     server.on("/json2", HTTP_GET, [](AsyncWebServerRequest *request){
-      tag_read(2);
+      //tag_read(2);
       String response = parser(2);
       request->send(200, "application/json", response);
     });
     server.onNotFound(notFound);
-    //AsyncElegantOTA.begin(&server);
-    //server.begin();
   }
   else {
     Serial.println("Setting AP (Access Point)");
@@ -334,14 +279,16 @@ void setup() {
       delay(3000);
       ESP.restart();
     });
-    //server.begin();
   }
   AsyncElegantOTA.begin(&server);
   server.begin();
   SPI.begin();    
   mfrc522_1.PCD_Init(); 
   mfrc522_2.PCD_Init();
-  
+  //mfrc522_1.PCD_SetAntennaGain(MFRC522::PCD_RxGain::RxGain_max);
+  //mfrc522_2.PCD_SetAntennaGain(MFRC522::PCD_RxGain::RxGain_max);
+  nfc_1.begin();
+  nfc_2.begin();
 }
 
 void loop() {
@@ -364,143 +311,119 @@ String parser(int sensor){
       return response;
 }
 
-bool tag_read(int sensor, MFRC522 &mfrc){
-  NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
-  NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
-  nfc_1.begin();
-  nfc_2.begin();
-  Serial.print("TAG.......");
-  Serial.println(sensor);
-  switch (sensor)
-  {
-  case 1:
+bool tag_read(int sensor){
+ 
+  if (sensor == 1){
+    Serial.print("TAG.......");
+    Serial.println(sensor);
     if (nfc_1.tagPresent()){
-    //Serial.println("Reading nfc tag");
-    NfcTag tag = nfc_1.read();
-    Serial.print("UID: ");
-    uid_str = tag.getUidString(); 
-    uid_str.toCharArray(uid, uid_str.length() + 1);
-    Serial.println(uid_str);
-    if (tag.hasNdefMessage()){ 
-      NdefMessage message = tag.getNdefMessage();
-      //Serial.print("This nfc Tag contains an NDEF Message with ");
-      //Serial.print(message.getRecordCount());
-      //Serial.println(" NDEF Records");
-      int recordCount = message.getRecordCount();
-      for (int i = 0; i < recordCount; i++){
-        //Serial.print("NDEF Record ");
-        //Serial.println(i+1);
-        NdefRecord record = message.getRecord(i);
-        int payloadLength = record.getPayloadLength();
-        const byte *payload = record.getPayload();
-        String tag_msg_str = "";
-        for (int c = 3; c < payloadLength; c++) {
-          tag_msg_str += (char)payload[c];
-        }
-        //Serial.print("  Payload (as String): ");                   
-        tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-        Serial.println(tag_msg_str);
-        switch (i) {
-          case 0:
-            mat_type = tag_msg_str;
-            break;
-          case 1:
-            mat_color = tag_msg_str;
-            break;
-          case 2:
-            spool_lenght = tag_msg_str;
-            break;
-          case 3:
-            spool_weigth = tag_msg_str;
-            break;
-          case 4:
-            temp_bed = tag_msg_str; 
-            break;
-          case 5:
-            temp_ext = tag_msg_str;
-            break;
-          case 6:
-            t_fl_b = tag_msg_str;
-            break;
-          case 7:
-            t_fl_e = tag_msg_str;
-            break;
-          default :
-            break;
+      NfcTag tag = nfc_1.read();
+      Serial.print("UID: ");
+      uid_str = tag.getUidString(); 
+      uid_str.toCharArray(uid, uid_str.length() + 1);
+      Serial.println(uid_str);
+      if (tag.hasNdefMessage()){ 
+        NdefMessage message = tag.getNdefMessage();
+        int recordCount = message.getRecordCount();
+        for (int i = 0; i < recordCount; i++){
+          NdefRecord record = message.getRecord(i);
+          int payloadLength = record.getPayloadLength();
+          const byte *payload = record.getPayload();
+          String tag_msg_str = "";
+          for (int c = 3; c < payloadLength; c++) {
+            tag_msg_str += (char)payload[c];
+          }
+          tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
+          Serial.println(tag_msg_str);
+          switch (i) {
+            case 0:
+              mat_type = tag_msg_str;
+              break;
+            case 1:
+              mat_color = tag_msg_str;
+              break;
+            case 2:
+              spool_lenght = tag_msg_str;
+              break;
+            case 3:
+              spool_weigth = tag_msg_str;
+              break;
+            case 4:
+              temp_bed = tag_msg_str; 
+              break;
+            case 5:
+              temp_ext = tag_msg_str;
+              break;
+            case 6:
+              t_fl_b = tag_msg_str;
+              break;
+            case 7:
+              t_fl_e = tag_msg_str;
+              break;
+            default :
+              break;
+          }
         }
       }
+    //nfc.haltTag();
+    return true;
     }
-      return true;
-    } else {
-      return false;
-  }
-    break;
-  case 2:
+  } 
+  if (sensor == 2){
+    Serial.print("TAG.......");
+    Serial.println(sensor);
     if (nfc_2.tagPresent()){
-    //Serial.println("Reading nfc tag");
-    NfcTag tag = nfc_2.read();
-    Serial.print("UID: ");
-    uid_str = tag.getUidString(); 
-    uid_str.toCharArray(uid, uid_str.length() + 1);
-    Serial.println(uid_str);
-    if (tag.hasNdefMessage()){ 
-      NdefMessage message = tag.getNdefMessage();
-      //Serial.print("This nfc Tag contains an NDEF Message with ");
-      //Serial.print(message.getRecordCount());
-      //Serial.println(" NDEF Records");
-      int recordCount = message.getRecordCount();
-      for (int i = 0; i < recordCount; i++){
-        //Serial.print("NDEF Record ");
-        //Serial.println(i+1);
-        NdefRecord record = message.getRecord(i);
-        int payloadLength = record.getPayloadLength();
-        const byte *payload = record.getPayload();
-        String tag_msg_str = "";
-        for (int c = 3; c < payloadLength; c++) {
-          tag_msg_str += (char)payload[c];
-        }
-        //Serial.print("  Payload (as String): ");                   
-        tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-        Serial.println(tag_msg_str);
-        switch (i) {
-          case 0:
-            mat_type = tag_msg_str;
-            break;
-          case 1:
-            mat_color = tag_msg_str;
-            break;
-          case 2:
-            spool_lenght = tag_msg_str;
-            break;
-          case 3:
-            spool_weigth = tag_msg_str;
-            break;
-          case 4:
-            temp_bed = tag_msg_str; 
-            break;
-          case 5:
-            temp_ext = tag_msg_str;
-            break;
-          case 6:
-            t_fl_b = tag_msg_str;
-            break;
-          case 7:
-            t_fl_e = tag_msg_str;
-            break;
-          default :
-            break;
+      NfcTag tag = nfc_2.read();
+      Serial.print("UID: ");
+      uid_str = tag.getUidString(); 
+      uid_str.toCharArray(uid, uid_str.length() + 1);
+      Serial.println(uid_str);
+      if (tag.hasNdefMessage()){ 
+        NdefMessage message = tag.getNdefMessage();
+        int recordCount = message.getRecordCount();
+        for (int i = 0; i < recordCount; i++){
+          NdefRecord record = message.getRecord(i);
+          int payloadLength = record.getPayloadLength();
+          const byte *payload = record.getPayload();
+          String tag_msg_str = "";
+          for (int c = 3; c < payloadLength; c++) {
+            tag_msg_str += (char)payload[c];
+          }
+          tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
+          Serial.println(tag_msg_str);
+          switch (i) {
+            case 0:
+              mat_type = tag_msg_str;
+              break;
+            case 1:
+              mat_color = tag_msg_str;
+              break;
+            case 2:
+              spool_lenght = tag_msg_str;
+              break;
+            case 3:
+              spool_weigth = tag_msg_str;
+              break;
+            case 4:
+              temp_bed = tag_msg_str; 
+              break;
+            case 5:
+              temp_ext = tag_msg_str;
+              break;
+            case 6:
+              t_fl_b = tag_msg_str;
+              break;
+            case 7:
+              t_fl_e = tag_msg_str;
+              break;
+            default :
+              break;
+          }
         }
       }
+    return true;
     }
-      return true;
-    } else {
-      return false;
-  }
-    break;
-
-  default:
-    break;
-  }
+  } 
   return false;
 }
 
