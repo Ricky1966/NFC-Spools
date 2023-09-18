@@ -8,15 +8,17 @@
 #include <NfcAdapter.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
+
 #include "parser_json.h"
 #include "tag_read.h"
 
-#define SS_PIN_1 4 // ESP32 pin GPIO4
-#define SS_PIN_2 5  // ESP32 pin GPIO5 
-#define SS_PIN_3 6 // ESP32 pin GPIO4
-#define SS_PIN_4 7  // ESP32 pin GPIO5
-#define MAX_SENSORS 4 //max number of sensors 
-#define RST_PIN 27 // ESP32 pin GPIO27 
+#define SS_PIN_1 4     // ESP32 pin GPIO4
+#define SS_PIN_2 5     // ESP32 pin GPIO5 
+#define SS_PIN_3 6     // ESP32 pin GPIO4
+#define SS_PIN_4 7     // ESP32 pin GPIO5
+#define MAX_SENSORS 4  //max number of sensors
+#define RST_PIN 27     // ESP32 pin GPIO27
+
 // Search for parameter in HTTP POST request
 const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
