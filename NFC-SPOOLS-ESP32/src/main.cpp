@@ -4,11 +4,12 @@
 #include <AsyncTCP.h>
 #include <AsyncElegantOTA.h>
 #include <LittleFS.h>
-#include <Preferences.h>
 #include <MFRC522.h>
 #include <NfcAdapter.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
+#include "parser_json.h"
+#include "tag_read.h"
 
 #define SS_PIN_1 4 // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5 
@@ -16,8 +17,6 @@
 #define SS_PIN_4 7  // ESP32 pin GPIO5
 #define MAX_SENSORS 4 //max number of sensors 
 #define RST_PIN 27 // ESP32 pin GPIO27 
-const byte readersNum = 2;
-byte SS_Pins[readersNum] = {SS_PIN_1, SS_PIN_2};//, SS_PIN_3, SS_PIN_4};
 // Search for parameter in HTTP POST request
 const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
@@ -46,12 +45,9 @@ IPAddress localGateway;
 IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
-//MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
-//MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
-String parser(int);
-bool tag_read(int);
+
 bool tag_write();
 void tag_erase();
 void tag_clear();
@@ -80,6 +76,13 @@ void writePref(const char * pref, const char * message){
 }
 
 bool initWiFi() {
+  // looking for stored preference
+  preferences.begin("nfc-bobine", false);
+  ssid = preferences.getString("ssid","");
+  pass = preferences.getString("pass","");
+  ip = preferences.getString("ip","");
+  gateway =  preferences.getString("gateway","");
+
   if(ssid=="" || ip==""){
     Serial.println("Undefined SSID or IP address.");
     return false;
@@ -170,16 +173,13 @@ void notFound(AsyncWebServerRequest *request)
 
 void setup() {
   Serial.begin(115200);
-  preferences.begin("nfc-bobine", false);
+  
   initLittleFS();
-  ssid = preferences.getString("ssid","");
-  pass = preferences.getString("pass","");
-  ip = preferences.getString("ip","");
-  gateway =  preferences.getString("gateway","");
-  Serial.println(ip);
+  
+  //Serial.println(ip);
 
   if(initWiFi()) {
-
+    Serial.println("Init WiFi!");
     // Route for root / web page
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
       int paramsNr = request->params();
@@ -218,12 +218,18 @@ void setup() {
     });
     server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
     // Route JSON request
+    server.on("/json1", HTTP_GET, [](AsyncWebServerRequest *request){
+      tag_read(1);
+      String response = parser(2);
+      request->send(200, "application/json", response);
+    });
     server.on("/json2", HTTP_GET, [](AsyncWebServerRequest *request){
-      //tag_read(2);
+      tag_read(2);
       String response = parser(2);
       request->send(200, "application/json", response);
     });
     server.onNotFound(notFound);
+    delay(3000);
   }
   else {
     Serial.println("Setting AP (Access Point)");
@@ -285,146 +291,12 @@ void setup() {
   SPI.begin();    
   mfrc522_1.PCD_Init(); 
   mfrc522_2.PCD_Init();
-  //mfrc522_1.PCD_SetAntennaGain(MFRC522::PCD_RxGain::RxGain_max);
-  //mfrc522_2.PCD_SetAntennaGain(MFRC522::PCD_RxGain::RxGain_max);
+  delay(1000);
   nfc_1.begin();
   nfc_2.begin();
 }
 
 void loop() {
-}
-
-String parser(int sensor){
-  StaticJsonDocument<300> data;
-      data["Sensor"] = 2;
-      data["UID"] = uid_str;
-      data["Material"] = mat_type ;
-      data["Color"] = mat_color ;
-      data["Lenght"] = spool_lenght ;
-      data["Weigth"] = spool_weigth ;
-      data["T_Bed"] = temp_bed ;
-      data["T_Ext"] = temp_ext ;
-      data["T_fl_Bed"] = t_fl_b ;
-      data["T_fl_Ext"] = t_fl_e ;
-      String response;
-      serializeJson(data, response);
-      return response;
-}
-
-bool tag_read(int sensor){
- 
-  if (sensor == 1){
-    Serial.print("TAG.......");
-    Serial.println(sensor);
-    if (nfc_1.tagPresent()){
-      NfcTag tag = nfc_1.read();
-      Serial.print("UID: ");
-      uid_str = tag.getUidString(); 
-      uid_str.toCharArray(uid, uid_str.length() + 1);
-      Serial.println(uid_str);
-      if (tag.hasNdefMessage()){ 
-        NdefMessage message = tag.getNdefMessage();
-        int recordCount = message.getRecordCount();
-        for (int i = 0; i < recordCount; i++){
-          NdefRecord record = message.getRecord(i);
-          int payloadLength = record.getPayloadLength();
-          const byte *payload = record.getPayload();
-          String tag_msg_str = "";
-          for (int c = 3; c < payloadLength; c++) {
-            tag_msg_str += (char)payload[c];
-          }
-          tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-          Serial.println(tag_msg_str);
-          switch (i) {
-            case 0:
-              mat_type = tag_msg_str;
-              break;
-            case 1:
-              mat_color = tag_msg_str;
-              break;
-            case 2:
-              spool_lenght = tag_msg_str;
-              break;
-            case 3:
-              spool_weigth = tag_msg_str;
-              break;
-            case 4:
-              temp_bed = tag_msg_str; 
-              break;
-            case 5:
-              temp_ext = tag_msg_str;
-              break;
-            case 6:
-              t_fl_b = tag_msg_str;
-              break;
-            case 7:
-              t_fl_e = tag_msg_str;
-              break;
-            default :
-              break;
-          }
-        }
-      }
-    //nfc.haltTag();
-    return true;
-    }
-  } 
-  if (sensor == 2){
-    Serial.print("TAG.......");
-    Serial.println(sensor);
-    if (nfc_2.tagPresent()){
-      NfcTag tag = nfc_2.read();
-      Serial.print("UID: ");
-      uid_str = tag.getUidString(); 
-      uid_str.toCharArray(uid, uid_str.length() + 1);
-      Serial.println(uid_str);
-      if (tag.hasNdefMessage()){ 
-        NdefMessage message = tag.getNdefMessage();
-        int recordCount = message.getRecordCount();
-        for (int i = 0; i < recordCount; i++){
-          NdefRecord record = message.getRecord(i);
-          int payloadLength = record.getPayloadLength();
-          const byte *payload = record.getPayload();
-          String tag_msg_str = "";
-          for (int c = 3; c < payloadLength; c++) {
-            tag_msg_str += (char)payload[c];
-          }
-          tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-          Serial.println(tag_msg_str);
-          switch (i) {
-            case 0:
-              mat_type = tag_msg_str;
-              break;
-            case 1:
-              mat_color = tag_msg_str;
-              break;
-            case 2:
-              spool_lenght = tag_msg_str;
-              break;
-            case 3:
-              spool_weigth = tag_msg_str;
-              break;
-            case 4:
-              temp_bed = tag_msg_str; 
-              break;
-            case 5:
-              temp_ext = tag_msg_str;
-              break;
-            case 6:
-              t_fl_b = tag_msg_str;
-              break;
-            case 7:
-              t_fl_e = tag_msg_str;
-              break;
-            default :
-              break;
-          }
-        }
-      }
-    return true;
-    }
-  } 
-  return false;
 }
 
 bool tag_write(){
