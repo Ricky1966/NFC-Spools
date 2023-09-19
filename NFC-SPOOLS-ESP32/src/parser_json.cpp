@@ -4,6 +4,8 @@ extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed
 
 String parser(int sensor){
   StaticJsonDocument<300> data;
+  Serial.print("JSn called, sensor :");
+  Serial.println(sensor);
       data["Sensor"] = sensor;
       data["UID"] = uid_str;
       data["Material"] = mat_type ;
