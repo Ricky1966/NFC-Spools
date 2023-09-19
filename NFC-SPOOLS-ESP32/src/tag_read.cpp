@@ -39,38 +39,10 @@ bool tag_read(int sensor){
             tag_msg_str += (char)payload[c];
           }
           tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-          Serial.println(tag_msg_str);
-          switch (i) {
-            case 0:
-              mat_type = tag_msg_str;
-              break;
-            case 1:
-              mat_color = tag_msg_str;
-              break;
-            case 2:
-              spool_lenght = tag_msg_str;
-              break;
-            case 3:
-              spool_weigth = tag_msg_str;
-              break;
-            case 4:
-              temp_bed = tag_msg_str; 
-              break;
-            case 5:
-              temp_ext = tag_msg_str;
-              break;
-            case 6:
-              t_fl_b = tag_msg_str;
-              break;
-            case 7:
-              t_fl_e = tag_msg_str;
-              break;
-            default :
-              break;
-          }
+          //Serial.println(tag_msg_str);
+          loader(i,tag_msg_str);
         }
       }
-    //nfc.haltTag();
     return true;
     }
   } 
@@ -96,39 +68,43 @@ bool tag_read(int sensor){
             tag_msg_str += (char)payload[c];
           }
           tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-          Serial.println(tag_msg_str);
-          switch (i) {
-            case 0:
-              mat_type = tag_msg_str;
-              break;
-            case 1:
-              mat_color = tag_msg_str;
-              break;
-            case 2:
-              spool_lenght = tag_msg_str;
-              break;
-            case 3:
-              spool_weigth = tag_msg_str;
-              break;
-            case 4:
-              temp_bed = tag_msg_str; 
-              break;
-            case 5:
-              temp_ext = tag_msg_str;
-              break;
-            case 6:
-              t_fl_b = tag_msg_str;
-              break;
-            case 7:
-              t_fl_e = tag_msg_str;
-              break;
-            default :
-              break;
-          }
+          //Serial.println(tag_msg_str);
+          loader(i,tag_msg_str);
         }
       }
     return true;
     }
   } 
   return false;
+}
+
+void loader(int i ,String tag_msg_str){
+  switch (i) {
+    case 0:
+      mat_type = tag_msg_str;
+      break;
+    case 1:
+      mat_color = tag_msg_str;
+      break;
+    case 2:
+      spool_lenght = tag_msg_str;
+      break;
+    case 3:
+      spool_weigth = tag_msg_str;
+      break;
+    case 4:
+      temp_bed = tag_msg_str; 
+      break;
+    case 5:
+      temp_ext = tag_msg_str;
+      break;
+    case 6:
+      t_fl_b = tag_msg_str;
+      break;
+    case 7:
+      t_fl_e = tag_msg_str;
+      break;
+    default :
+      break;
+  }
 }
