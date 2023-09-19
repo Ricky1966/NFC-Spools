@@ -10,7 +10,7 @@ This is a new version of NFC-Bobine
 
 First start:
 - open browser;
-- select ESP-Manageron WIFI Access Point;
+- select ESP-WIFI-MAMAGER WIFI Access Point;
 - http://192.167.4.1;
 - set up your Wifi Lan;
 - when submit, ESP32 auto restart.
