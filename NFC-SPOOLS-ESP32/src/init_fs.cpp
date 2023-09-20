@@ -1,3 +1,7 @@
+/*
+// Questa è relativa all'inizializzazione del filesystem e la lettura e scrittura
+// delle preference
+*/
 #include "init_fs.h"
 
 extern String ssid, pass, ip, gateway;
