@@ -1,3 +1,15 @@
+/*
+// Questa è la procedura per creare le pagine del server
+// La funzione def_pages_ap() definisce la funzione chiamata quando non vengono
+// trovate le chiavi di accesso alla rete wifi e permette di inserirle nella pagina e salvarle tra le 
+// preferenze.
+// La funzione def_pages_ws() si occupa di create le pagine del server per la gesione
+// delle varie fasi di lettura e scrittura dei tag
+// Infine la funzione processor() modifica le variabili della pagina index.html
+// TODO :
+// La pagina per la scrittura dei valori sul tag. 
+*/
+
 #include "def_pages.h"
 #include "init_fs.h"
 #include "tag_read.h"
