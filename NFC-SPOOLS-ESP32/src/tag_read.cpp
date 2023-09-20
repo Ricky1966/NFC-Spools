@@ -1,13 +1,13 @@
 #include "tag_read.h"
 
 extern MFRC522 mfrc522_1;
-extern MFRC522 mfrc522_2;
-
+extern MFRC522 mfrc522_2;
 extern NfcAdapter nfc_1;
 extern NfcAdapter nfc_2;
 
 extern char uid[30], tag_msg[100];
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
+
 bool tag_read(int sensor){
  
   if (sensor == 1){
