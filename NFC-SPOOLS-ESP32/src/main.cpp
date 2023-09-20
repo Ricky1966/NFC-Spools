@@ -15,6 +15,8 @@
 #include "tag_read.h"
 #include "tag_write.h"
 #include "parser_json.h"
+#include "init_fs.h"
+#include "def_pages.h"
 
 #define SS_PIN_1 4 // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5 
@@ -52,28 +54,6 @@ MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
-
-void initLittleFS() {
-  if (!LittleFS.begin(true)) {
-    Serial.println("An error has occurred while mounting LittleFS");
-  }
-  Serial.println("LittleFS mounted successfully");
-}
-
-// Read File from LittleFS
-void readPref(){
-  ssid = preferences.getString("ssid", "");
-  pass = preferences.getString("pass", "");
-  ip = preferences.getString("ip","");
-  gateway = preferences.getString("gateway","");
-}
-
-void writePref(const char * pref, const char * message){
-  preferences.putString(pref,message);
-  Serial.print("Preference :");
-  Serial.print(pref);
-  Serial.println(" setted!");
-}
 
 bool initWiFi() {
   // looking for stored preference
@@ -115,120 +95,15 @@ bool initWiFi() {
   return true;
 }
 
-String processor(const String& var) {
-  if(var == "UID"){
-    Serial.print("UID : ");
-    Serial.println(uid_str);
-    return uid_str;
-  }
-  if(var == "SEN"){
-    if (functionCalled == "READ 1"){
-      Serial.println("1");
-      return "1";
-    } 
-     if (functionCalled == "READ 2"){
-      Serial.println("2");
-      return "2";
-    } 
-  }
-  if(var == "MAT"){
-    Serial.println(mat_type);
-    return mat_type;
-  }
-  if(var == "COL"){
-    Serial.println(mat_color);
-    return mat_color;
-  }
-  if(var == "LEN"){
-    Serial.println(spool_lenght);
-    return spool_lenght;
-  }
-  if(var == "WEI"){
-    Serial.println(spool_weigth);
-    return spool_weigth;
-  }
-  if(var == "TBED"){
-    Serial.println(temp_bed);
-    return temp_bed;
-  }
-  if(var == "TEXT"){
-    Serial.println(temp_ext);
-    return temp_ext;
-  }
-  if(var == "TFLB"){
-    Serial.println(t_fl_b);
-    return t_fl_b;
-  }
-  if(var == "TFLE"){
-    Serial.println(t_fl_e);
-    return t_fl_e;
-  }
-  return String();
-}
-
-void notFound(AsyncWebServerRequest *request)
-{
-  request->send(404, "application/json", "{\"message\":\"Not found\"}");
-}
-
 void setup() {
   Serial.begin(115200);
   
   initLittleFS();
-  
-  //Serial.println(ip);
 
   if(initWiFi()) {
     Serial.println("Init WiFi!");
     // Route for root / web page
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-      int paramsNr = request->params();
-    Serial.println(paramsNr);
-
-    for (int i = 0; i < paramsNr; i++)
-    {
-      AsyncWebParameter* p = request->getParam(i);
-      if (p->name() == "function"){
-        function = p->value();
-        Serial.print("Param name: ");
-        Serial.println(function);
-      }
-      if (p->name() == "sensor_n"){
-        sensor_n = p->value();
-        Serial.print("Param name: ");
-        Serial.println(sensor_n);
-      }
-      if (function == "read"){
-        tag_read(sensor_n.toInt());
-      }
-      if (function == "write"){
-        //tag_read(sensor_n.toInt());
-      }
-      if (function == "clear"){
-        //tag_read(sensor_n.toInt());
-      }
-      if (function == "erase"){
-        //tag_read(sensor_n.toInt());
-      }
-      if (function == "format"){
-        //tag_read(sensor_n.toInt());
-      }
-    }
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
-    });
-    server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
-    // Route JSON request
-    server.on("/json1", HTTP_GET, [](AsyncWebServerRequest *request){
-      tag_read(1);
-      String response = parser(1);
-      request->send(200, "application/json", response);
-    });
-    server.on("/json2", HTTP_GET, [](AsyncWebServerRequest *request){
-      tag_read(2);
-      String response = parser(2);
-      request->send(200, "application/json", response);
-    });
-    server.onNotFound(notFound);
+    def_pages_ws();
     delay(3000);
   }
   else {
@@ -240,51 +115,9 @@ void setup() {
     Serial.println(IP); 
 
     // Web Server Root URL
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-      request->send(LittleFS, "/wifimanager.html", "text/html");
-    });
-    
-    server.serveStatic("/", LittleFS, "/").setDefaultFile("/wifmanager.html");
-    
-    server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
-      int params = request->params();
-      for(int i=0;i<params;i++){
-        AsyncWebParameter* p = request->getParam(i);
-        if(p->isPost()){
-          // HTTP POST ssid value
-          if (p->name() == PARAM_INPUT_1) {
-            ssid = p->value().c_str();
-            Serial.print("SSID set to: ");
-            Serial.println(ssid);
-            writePref("ssid",ssid.c_str());
-          }
-          // HTTP POST pass value
-          if (p->name() == PARAM_INPUT_2) {
-            pass = p->value().c_str();
-            Serial.print("Password set to: ");
-            Serial.println(pass);
-            writePref("pass",pass.c_str());
-          }
-          // HTTP POST ip value
-          if (p->name() == PARAM_INPUT_3) {
-            ip = p->value().c_str();
-            Serial.print("IP Address set to: ");
-            Serial.println(ip);
-            writePref("ip", ip.c_str());
-          }
-          // HTTP POST gateway value
-          if (p->name() == PARAM_INPUT_4) {
-            gateway = p->value().c_str();
-            Serial.print("Gateway set to: ");
-            Serial.println(gateway);
-            writePref("gateway",gateway.c_str());
-          }
-        }
-      }
-      request->send(200, "text/plain", "Done. ESP will restart, connect to your router and go to IP address: " + ip);
-      delay(3000);
-      ESP.restart();
-    });
+    def_pages_ap();
+    delay(3000);
+    ESP.restart();
   }
   AsyncElegantOTA.begin(&server);
   server.begin();

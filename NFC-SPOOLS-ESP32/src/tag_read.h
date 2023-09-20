@@ -7,5 +7,4 @@
 
 bool tag_read(int);
 void loader(int,String);
-
 #endif
