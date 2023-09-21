@@ -101,20 +101,18 @@ void setup() {
   initLittleFS();
 
   if(initWiFi()) {
-    Serial.println("Init WiFi!");
-    // Route for root / web page
+    // setup Web Server
+    Serial.println("WiFi init!");
     def_pages_ws();
     delay(3000);
   }
   else {
+    // setup Access Point
     Serial.println("Setting AP (Access Point)");
-    WiFi.softAP("ESP-WIFI-MANAGER", NULL);
-
+    WiFi.softAP("ESP-WIFI-MANAGER", NULL);
     IPAddress IP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
-    Serial.println(IP); 
-
-    // Web Server Root URL
+    Serial.println(IP);
     def_pages_ap();
     delay(3000);
     ESP.restart();
