@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    text-align: center;
+    min-width: 360px;
+}
+.button-send {
+    width: 100%;
+    display: inline-block;
+    padding: 5px 55px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #337ab7;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 2px 2px #999;
+}
+.button-send:hover {
+    background-color: #2e6da4
+}
+.button-send:active {
+    background-color: #337ab7;
+    box-shadow: 1px 1px #666;
+    transform: translateY(4px);
+}
+.button-send:disabled {
+    background-color: #9c9c9c;
+    box-shadow: 1px 1px #666;
+    transform: translateY(4px);
+}
+.container {
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+}
+.form-container {
+    min-width: 380px;
+}
+.progress {
+    width: 100%;
+    height: 8px;
+    background: #e1e4e8;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress .progress-bar {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #ffd33d, #ea4aaa 17%, #b34bff 34%, #01feff 51%, #ffd33d 68%, #ea4aaa 85%, #b34bff);
+    background-size: 300% 100%;
+    -webkit-animation: progress-animation 2s linear infinite;
+    animation: progress-animation 2s linear infinite;
+}
+.input-file {
+    width: 100%;
+    border: 0px transparent;
+    padding: 4px 4px 4px 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 7px;
+    background-color: rgba(51, 122, 183, 0.3);
+}
+.additional-info {
+    height: 67px;
+}
+@-webkit-keyframes progress-animation {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: 0;
+    }
+}
+@keyframes progress-animation {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: 0;
+    }
+}
+.tile-container {
+    display: flex;
+    justify-content: center;
+}
+.footer-desc {
+    position: fixed;
+    display: flex;
+    bottom: 20px;
+    right: 20px;
+    align-items: center;
+}
+.footer-link {
+    font-size: x-small;
+    color: black;
+    text-decoration: none;
+    padding-left: 10px;
+}
+.button-o {
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+    background: none;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    width: 50%;
+    background: rgba(51, 122, 183, 0.3);
+}
+.button-o.selected {
+    background-color: #337ab7;
+    color: white;
+}
+.button-o.left {
+    border-radius: 14px 0px 0px 14px;
+    margin-right: -3px;
+}
+.button-o.right {
+    border-radius: 0px 14px 14px 0px;
+    margin-left: -3px;
+}
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.06); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
