@@ -2,7 +2,6 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncTCP.h>
-#include <AsyncElegantOTA.h>
 #include <LittleFS.h>
 #include <MFRC522.h>
 #include <NfcAdapter.h>
@@ -109,7 +108,8 @@ void setup() {
   else {
     // setup Access Point
     Serial.println("Setting AP (Access Point)");
-    WiFi.softAP("ESP-WIFI-MANAGER", NULL);
+    WiFi.softAP("ESP-WIFI-MANAGER", NULL);
+
     IPAddress IP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
     Serial.println(IP);
@@ -117,7 +117,6 @@ void setup() {
     delay(3000);
     ESP.restart();
   }
-  AsyncElegantOTA.begin(&server);
   server.begin();
   SPI.begin();    
   mfrc522_1.PCD_Init(); 
