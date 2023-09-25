@@ -114,8 +114,6 @@ void setup() {
     Serial.print("AP IP address: ");
     Serial.println(IP);
     def_pages_ap();
-    delay(3000);
-    ESP.restart();
   }
   server.begin();
   SPI.begin();    

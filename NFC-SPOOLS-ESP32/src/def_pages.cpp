@@ -33,55 +33,58 @@ void notFound(AsyncWebServerRequest *request)
 
 void def_pages_ap()
 {
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-      request->send(LittleFS, "/wifimanager.html", "text/html");
-    });
+  Serial.println("Sono qua");
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/wifimanager.html", "text/html");
+  });
     
-    server.serveStatic("/", LittleFS, "/").setDefaultFile("/wifmanager.html");
+  server.serveStatic("/", LittleFS, "/").setDefaultFile("/wifmanager.html");
     
-    server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
-      int params = request->params();
-      for(int i=0;i<params;i++){
-        AsyncWebParameter* p = request->getParam(i);
-        if(p->isPost()){
-          // HTTP POST ssid value
-          if (p->name() == PARAM_INPUT_1) {
-            ssid = p->value().c_str();
-            Serial.print("SSID set to: ");
-            Serial.println(ssid);
-            writePref("ssid",ssid.c_str());
-          }
-          // HTTP POST pass value
-          if (p->name() == PARAM_INPUT_2) {
-            pass = p->value().c_str();
-            Serial.print("Password set to: ");
-            Serial.println(pass);
-            writePref("pass",pass.c_str());
-          }
-          // HTTP POST ip value
-          if (p->name() == PARAM_INPUT_3) {
-            ip = p->value().c_str();
-            Serial.print("IP Address set to: ");
-            Serial.println(ip);
-            writePref("ip", ip.c_str());
-          }
-          // HTTP POST gateway value
-          if (p->name() == PARAM_INPUT_4) {
-            gateway = p->value().c_str();
-            Serial.print("Gateway set to: ");
-            Serial.println(gateway);
-            writePref("gateway",gateway.c_str());
-          }
+  server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
+    int params = request->params();
+    for(int i=0;i<params;i++){
+      AsyncWebParameter* p = request->getParam(i);
+      if(p->isPost()){
+        // HTTP POST ssid value
+        if (p->name() == PARAM_INPUT_1) {
+          ssid = p->value().c_str();
+          Serial.print("SSID set to: ");
+          Serial.println(ssid);
+          writePref("ssid",ssid.c_str());
+        }
+        // HTTP POST pass value
+        if (p->name() == PARAM_INPUT_2) {
+          pass = p->value().c_str();
+          Serial.print("Password set to: ");
+          Serial.println(pass);
+          writePref("pass",pass.c_str());
+        }
+        // HTTP POST ip value
+        if (p->name() == PARAM_INPUT_3) {
+          ip = p->value().c_str();
+          Serial.print("IP Address set to: ");
+          Serial.println(ip);
+          writePref("ip", ip.c_str());
+        }
+        // HTTP POST gateway value
+        if (p->name() == PARAM_INPUT_4) {
+          gateway = p->value().c_str();
+          Serial.print("Gateway set to: ");
+          Serial.println(gateway);
+          writePref("gateway",gateway.c_str());
         }
       }
-      request->send(200, "text/plain", "Done. ESP will restart, connect to your router and go to IP address: " + ip);
-    });
+    }
+    request->send(200, "text/plain", "Done. ESP will restart, connect to your router and go to IP address: " + ip);
+  });
+  delay(3000);
+  ESP.restart();
 }
 
 void def_pages_ws()
 {
-server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-      int paramsNr = request->params();
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+    int paramsNr = request->params();
     Serial.println(paramsNr);
 
     for (int i = 0; i < paramsNr; i++)
@@ -113,7 +116,7 @@ server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
         //tag_read(sensor_n.toInt());
       }
     }
-      request->send(LittleFS, "/index.html", "text/html", false, processor);
+    request->send(LittleFS, "/index.html", "text/html", false, processor);
     });
     server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
     // Route JSON request
@@ -127,8 +130,10 @@ server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
       String response = parser(2);
       request->send(200, "application/json", response);
     });
+    server.on("/update", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(LittleFS, "/my_ota.html", "text/html");
+    });
     server.onNotFound(notFound);
-
 }
 
 String processor(const String& var) {
