@@ -6,7 +6,7 @@ html {
   
   h1 {
     font-size: 1.8rem; 
-    color: white;
+    color: rgb(131, 129, 129);
   }
   
   p { 
@@ -15,7 +15,7 @@ html {
   
   .topnav { 
     overflow: hidden; 
-    background-color: #0A1128;
+    background-color: #0d2677;
   }
   
   body {  
@@ -97,7 +97,7 @@ html {
     transition-duration: 0.4s;
   }
   .button-on {
-    background-color: #034078;
+    background-color: #075aa8;
   }
   .button-on:hover {
     background-color: #1282A2;
@@ -116,7 +116,7 @@ html {
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

@@ -8,6 +8,7 @@
 #include <LittleFS.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
+#include <Update.h>
 
 void def_pages_ap();
 void def_pages_ws();

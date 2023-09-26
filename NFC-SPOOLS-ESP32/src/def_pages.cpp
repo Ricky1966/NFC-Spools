@@ -130,10 +130,15 @@ void def_pages_ws()
       String response = parser(2);
       request->send(200, "application/json", response);
     });
+    /*
     server.on("/update", HTTP_GET, [](AsyncWebServerRequest *request){
       request->send(LittleFS, "/my_ota.html", "text/html");
     });
+    */
     server.onNotFound(notFound);
+    server.on("/otaupdate", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(LittleFS,"/otaupdate.html", "text/html");
+  });
 }
 
 String processor(const String& var) {

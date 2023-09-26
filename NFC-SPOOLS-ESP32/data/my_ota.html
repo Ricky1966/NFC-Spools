@@ -19,8 +19,8 @@
 
     <form enctype="multipart/form-data" class="form-container" id="upload_form" method="post">
         <div id="switch-container">
-            <button class="button-o left selected" id="firmware-button" type="button">Firmware</button>
-            <button class="button-o right" id="filesystem-button" type="button">FileSystem</button>
+            <button class="button-send" id="firmware-button" type="button">Firmware</button>
+            <button class="button-send" id="filesystem-button" type="button">FileSystem</button>
         </div>
 
         <input accept='.bin,.bin.gz' class="input-file" id="file1" name='firmware' type="file"><br>
@@ -36,7 +36,7 @@
     </form>
 </div>
 <div class="container">
-    <a href="/"><button class="button-off" allign ="center"  name="function" value="read">HOME</button></a>
+    <a href="/"><button class="button-send" allign ="center"  name="function" value="home">HOME</button></a>
 </div>
 <script src="/script_ota.js"></script>
 </body>

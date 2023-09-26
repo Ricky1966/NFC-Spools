@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload OTA data</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+</head>
+<body>
+    <div class="topnav">
+        <h1>Upload OTA data</h1>
+    </div>
+    <br>
+    <div><img src="firmware-icon.png"></div>
+    <div class="content">
+        <div class="card-grid">
+            <div class="card">
+                <form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>
+                    <input type='file' name='update'>
+                    <input type='submit' value='Update'>
+                </form>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div id='prg'>progress: 0%</div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div><a href="/"><button class="button-on">HOME</button></a>
+    </div>
+    <script src="/script_otaupdate.js"></script>
+</body>
+</html>
