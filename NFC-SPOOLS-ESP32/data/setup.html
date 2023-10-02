@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP WEB SERVER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="topnav">
+        <h1>Setup WEB SERVER</h1>
+    </div>
+    <div class="content">
+        <div class="card-grid">
+            <div class="card">
+                <a href="/index.html"><button class="button-menu">HOME</button></a>
+                <a href="/otaupdate.html"><button class="button-menu">OTA</button></a>
+                <a href="/setup.html"><button class="button-menu" hidden>SETUP</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <form action="/" method="POST">
+            <p>
+              <label for="ssid">SSID</label>
+              <input type="text" id ="ssid" name="ssid"><br>
+              <label for="pass">Password</label>
+              <input type="text" id ="pass" name="pass"><br>
+              <label for="ip">IP Address</label>
+              <input type="text" id ="ip" name="ip" value="192.168.1.209"><br>
+              <label for="gateway">Gateway Address</label>
+              <input type="text" id ="gateway" name="gateway" value="192.168.1.1"><br>
+              <label for="n_sensor">Number of sensor (1-4)</label>
+              <input type="text" id ="n_sensor" name="n_sensor" value="1"><br>
+              <input type ="submit" value ="Submit">
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

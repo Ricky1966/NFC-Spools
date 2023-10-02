@@ -108,7 +108,16 @@ html {
   .button-off:hover {
     background-color: #252524;
   } 
-
+  .button-menu {
+    background-color: #075aa8;
+    width: 150px;
+    height: 25px;
+  }
+  .button-menu:hover {
+    background-color: #252524;
+    width: 150px;
+    height: 25px;
+  }
   /* Customize the label (the container) */
 .container {
   display: block;

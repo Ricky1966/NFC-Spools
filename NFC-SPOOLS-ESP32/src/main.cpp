@@ -28,10 +28,12 @@ const char* PARAM_INPUT_1 = "ssid";
 const char* PARAM_INPUT_2 = "pass";
 const char* PARAM_INPUT_3 = "ip";
 const char* PARAM_INPUT_4 = "gateway";
+const char* PARAM_INPUT_5 = "n_sensors";
 String ssid;
 String pass;
 String ip;
 String gateway;
+String n_sensors;
 unsigned long previousMillis = 0;
 const long interval = 10000;  
 String functionCalled;
@@ -51,8 +53,12 @@ IPAddress localGateway;
 IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
+MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
+MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
+NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
+NfcAdapter nfc_4 = NfcAdapter(&mfrc522_4);
 
 bool initWiFi() {
   // looking for stored preference

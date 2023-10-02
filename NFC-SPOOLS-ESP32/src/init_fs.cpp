@@ -4,7 +4,7 @@
 */
 #include "init_fs.h"
 
-extern String ssid, pass, ip, gateway;
+extern String ssid, pass, ip, gateway, n_sensors;
 extern Preferences preferences;
 
 void initLittleFS() {
@@ -21,6 +21,7 @@ void readPref(){
   pass = preferences.getString("pass", "");
   ip = preferences.getString("ip","");
   gateway = preferences.getString("gateway","");
+  n_sensors = preferences.getString("n_sensors", "1");
 }
 
 void writePref(const char * pref, const char * message){
