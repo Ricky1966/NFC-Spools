@@ -1,3 +1,5 @@
+#ifdef __PIPPO__
+
 #ifndef _TAG_READ_H
 #define _TAG_READ_H
 
@@ -8,3 +10,5 @@
 bool tag_read(int);
 void loader(int,String);
 #endif
+
+#endif // __PIPPO__

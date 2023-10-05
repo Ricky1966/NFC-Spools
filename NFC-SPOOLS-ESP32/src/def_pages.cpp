@@ -12,7 +12,8 @@
 
 #include "def_pages.h"
 #include "init_fs.h"
-#include "tag_read.h"
+//#include "tag_read.h"
+#include "new_tag_read.h"
 #include "parser_json.h"
 
 //AsyncWebServer server(80);

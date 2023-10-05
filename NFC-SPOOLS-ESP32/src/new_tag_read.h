@@ -5,6 +5,7 @@
 #include <MFRC522.h>
 #include <NfcAdapter.h>
 
-bool tag_read(int);
 void loader(int,String);
+bool tag_read(int);
+
 #endif
