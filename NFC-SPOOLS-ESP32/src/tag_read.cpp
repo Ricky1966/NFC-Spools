@@ -1,4 +1,7 @@
+#ifdef __PIPPO__
 #include "tag_read.h"
+
+
 /*
 #define SS_PIN_1 4    // ESP32 pin GPIO4
 #define SS_PIN_2 5    // ESP32 pin GPIO5 
@@ -108,3 +111,6 @@ void loader(int i ,String tag_msg_str){
       break;
   }
 }
+
+
+#endif // __PIPPO__

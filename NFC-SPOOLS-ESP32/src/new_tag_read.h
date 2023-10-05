@@ -5,6 +5,9 @@
 #include <MFRC522.h>
 #include <NfcAdapter.h>
 
-bool tag_read(int);
+#define MAX_SENSORS 4 //max number of sensors 
+
 void loader(int,String);
+bool tag_read(int);
+
 #endif

@@ -12,7 +12,8 @@
 #include "tag_clear.h"
 #include "tag_erase.h"
 #include "tag_format.h"
-#include "tag_read.h"
+//#include "tag_read.h"
+//#include "new_tag_read.h"
 #include "tag_write.h"
 #include "parser_json.h"
 #include "init_fs.h"
@@ -22,7 +23,7 @@
 #define SS_PIN_2 5  // ESP32 pin GPIO5 
 #define SS_PIN_3 6 // ESP32 pin GPIO4
 #define SS_PIN_4 7  // ESP32 pin GPIO5
-#define MAX_SENSORS 4 //max number of sensors 
+//#define MAX_SENSORS 4 //max number of sensors   --> moved to new_tag_read.h
 #define RST_PIN 27 // ESP32 pin GPIO27 
 // Search for parameter in HTTP POST request
 const char* PARAM_INPUT_1 = "ssid";
@@ -126,9 +127,13 @@ void setup() {
   SPI.begin();    
   mfrc522_1.PCD_Init(); 
   mfrc522_2.PCD_Init();
+  mfrc522_3.PCD_Init();
+  mfrc522_4.PCD_Init();
   delay(1000);
   nfc_1.begin();
   nfc_2.begin();
+  nfc_3.begin();
+  nfc_4.begin();
 }
 
 void loop() {
