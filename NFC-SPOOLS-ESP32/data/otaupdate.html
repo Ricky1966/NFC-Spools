@@ -24,13 +24,13 @@
     <div class="content">
         <div class="card-grid">
             <div class="card">
-                <form enctype="multipart/form-data" class="form-container" id="upload_form" method="post">
+                <form action='/doUpdate' enctype="multipart/form-data" class="form-container" id="upload_form" method="post">
                     <button class="button-menu" id="firmware-button" type="button">Firmware</button>
                     <button class="button-menu" id="filesystem-button" type="button">FileSystem</button>
                     <br><br>
-                    <input accept='.bin,.bin.gz' class="input-file" id="file1" name='firmware' type="file">
+                    <input accept='.bin,.bin.gz' class="input-file" id="file1" name='update' type="file">
                     <br><br>
-                    <button id="button-send" class="button-menu" type="submit" disabled>Upload</button>
+                    <input class="button-menu" type='submit' value='Update'>
                 </form>
             </div>
             <div class="card-grid">

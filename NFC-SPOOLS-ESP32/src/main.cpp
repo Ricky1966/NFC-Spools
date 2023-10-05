@@ -7,6 +7,7 @@
 #include <NfcAdapter.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
+#include <Update.h>
 
 #include "tag_clear.h"
 #include "tag_erase.h"
