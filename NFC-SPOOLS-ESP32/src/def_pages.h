@@ -10,7 +10,6 @@
 #include <ArduinoJson.h>
 #include <Update.h>
 
-#include "def_pages.h"
 #include "init_fs.h"
 //#include "tag_read.h"
 #include "new_tag_read.h"
