@@ -11,9 +11,6 @@
 */
 
 #include "def_pages.h"
-/*#include "init_fs.h"
-#include "tag_read.h"
-#include "parser_json.h"*/         // ----> moved to def_pages.h
 
 //AsyncWebServer server(80);
 extern AsyncWebServer server;
@@ -25,8 +22,6 @@ extern const char* PARAM_INPUT_4 ;//= "gateway";
 extern const char* PARAM_INPUT_5 ;//= "n_sensors";
 extern String mat_type,mat_color,spool_lenght,spool_weigth,temp_bed,temp_ext,t_fl_b,t_fl_e;
 extern String function, functionCalled, uid_str, sensor_n;
-size_t content_len;
-#define U_PART U_SPIFFS
 
 void notFound(AsyncWebServerRequest *request)
 {
@@ -144,7 +139,8 @@ void def_pages_ws()
 
     server.on("/otaupdate", HTTP_GET, [](AsyncWebServerRequest *request){
       request->send(LittleFS,"/otaupdate.html", "text/html");
-  });
+    });
+  
     server.on("/setup.html", HTTP_POST, [](AsyncWebServerRequest *request) {
     int params = request->params();
     for(int i=0;i<params;i++){
