@@ -10,6 +10,12 @@
 #include <ArduinoJson.h>
 #include <Update.h>
 
+#include "def_pages.h"
+#include "init_fs.h"
+//#include "tag_read.h"
+#include "new_tag_read.h"
+#include "parser_json.h"
+
 void def_pages_ap();
 void def_pages_ws();
 void notFound(AsyncWebServerRequest *);
