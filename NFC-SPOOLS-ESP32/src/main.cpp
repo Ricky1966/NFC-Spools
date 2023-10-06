@@ -13,7 +13,7 @@
 #include "tag_erase.h"
 #include "tag_format.h"
 //#include "tag_read.h"
-//#include "new_tag_read.h"
+#include "new_tag_read.h"
 #include "tag_write.h"
 #include "parser_json.h"
 #include "init_fs.h"
