@@ -19,7 +19,4 @@ void def_pages_ap();
 void def_pages_ws();
 void notFound(AsyncWebServerRequest *);
 String processor(const String&);
-void handleUpdate(AsyncWebServerRequest *request);
-void handleDoUpdate(AsyncWebServerRequest *request, const String& filename, size_t index, uint8_t *data, size_t len, bool final);
-void printProgress(size_t , size_t );
 #endif
