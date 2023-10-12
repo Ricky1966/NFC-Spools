@@ -11,8 +11,8 @@
 #include <Update.h>
 
 #include "init_fs.h"
-//#include "tag_read.h"
-#include "new_tag_read.h"
+#include "tag_read.h"
+#include "tag_write.h"
 #include "parser_json.h"
 
 void def_pages_ap();

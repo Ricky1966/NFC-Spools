@@ -12,8 +12,7 @@
 #include "tag_clear.h"
 #include "tag_erase.h"
 #include "tag_format.h"
-//#include "tag_read.h"
-#include "new_tag_read.h"
+#include "tag_read.h"
 #include "tag_write.h"
 #include "parser_json.h"
 #include "init_fs.h"
@@ -21,8 +20,8 @@
 
 #define SS_PIN_1 4 // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5 
-#define SS_PIN_3 6 // ESP32 pin GPIO4
-#define SS_PIN_4 7  // ESP32 pin GPIO5
+#define SS_PIN_3 15 // ESP32 pin GPIO2
+//#define SS_PIN_4 10  // ESP32 pin GPI10
 //#define MAX_SENSORS 4 //max number of sensors   --> moved to new_tag_read.h
 #define RST_PIN 27 // ESP32 pin GPIO27 
 // Search for parameter in HTTP POST request
@@ -56,11 +55,11 @@ IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
 MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
-MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
+//MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
-NfcAdapter nfc_4 = NfcAdapter(&mfrc522_4);
+//NfcAdapter nfc_4 = NfcAdapter(&mfrc522_4);
 
 bool initWiFi() {
   // looking for stored preference
@@ -128,14 +127,13 @@ void setup() {
   mfrc522_1.PCD_Init(); 
   mfrc522_2.PCD_Init();
   mfrc522_3.PCD_Init();
-  mfrc522_4.PCD_Init();
+  //mfrc522_4.PCD_Init();
   delay(1000);
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
-  nfc_4.begin();
+  //nfc_4.begin();
 }
 
 void loop() {
 }
-

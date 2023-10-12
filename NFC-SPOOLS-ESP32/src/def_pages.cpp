@@ -108,16 +108,16 @@ void def_pages_ws()
         tag_read(sensor_n.toInt());
       }
       if (function == "write"){
-        //tag_read(sensor_n.toInt());
+        tag_write(sensor_n.toInt());
       }
       if (function == "clear"){
-        //tag_read(sensor_n.toInt());
+        //tag_clear(sensor_n.toInt());
       }
       if (function == "erase"){
-        //tag_read(sensor_n.toInt());
+        //tag_erase(sensor_n.toInt());
       }
       if (function == "format"){
-        //tag_read(sensor_n.toInt());
+        //tag_format(sensor_n.toInt());
       }
     }
     request->send(LittleFS, "/index.html", "text/html", false, processor);
