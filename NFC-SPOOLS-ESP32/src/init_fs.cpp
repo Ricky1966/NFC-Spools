@@ -7,8 +7,10 @@
 extern String ssid, pass, ip, gateway, n_sensors;
 extern Preferences preferences;
 
-void initLittleFS() {
-  if (!LittleFS.begin(true)) {
+void initLittleFS()
+{
+  if (!LittleFS.begin(true))
+  {
     Serial.println("An error has occurred while mounting LittleFS");
   }
   Serial.println("LittleFS mounted successfully");
@@ -16,16 +18,18 @@ void initLittleFS() {
 }
 
 // Read File from LittleFS
-void readPref(){
+void readPref()
+{
   ssid = preferences.getString("ssid", "");
   pass = preferences.getString("pass", "");
-  ip = preferences.getString("ip","");
-  gateway = preferences.getString("gateway","");
+  ip = preferences.getString("ip", "");
+  gateway = preferences.getString("gateway", "");
   n_sensors = preferences.getString("n_sensors", "1");
 }
 
-void writePref(const char * pref, const char * message){
-  preferences.putString(pref,message);
+void writePref(const char *pref, const char *message)
+{
+  preferences.putString(pref, message);
   Serial.print("Preference :");
   Serial.print(pref);
   Serial.println(" setted!");

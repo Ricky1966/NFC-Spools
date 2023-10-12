@@ -10,5 +10,5 @@
 
 void initLittleFS();
 void readPref();
-void writePref(const char *, const char * );
+void writePref(const char *, const char *);
 #endif

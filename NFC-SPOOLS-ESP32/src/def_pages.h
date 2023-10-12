@@ -18,5 +18,5 @@
 void def_pages_ap();
 void def_pages_ws();
 void notFound(AsyncWebServerRequest *);
-String processor(const String&);
+String processor(const String &);
 #endif
