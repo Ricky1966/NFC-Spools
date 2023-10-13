@@ -144,17 +144,17 @@ bool tag_read_init(int sensor, Spool* spool)
       break;
     case 2:
       // NfcAdapter nfc = NfcAdapter(&mfrc522_2);
-      digitalWrite(SS_PIN_2, LOW);
       digitalWrite(SS_PIN_1, HIGH);
+      digitalWrite(SS_PIN_2, LOW);
       digitalWrite(SS_PIN_3, HIGH);
       active_nfc = &nfc_2;
       Serial.println("Sensore 2");
       break;
     case 3:
       // NfcAdapter nfc = NfcAdapter(&mfrc522_3);
-      digitalWrite(SS_PIN_3, LOW);
       digitalWrite(SS_PIN_1, HIGH);
       digitalWrite(SS_PIN_2, HIGH);
+      digitalWrite(SS_PIN_3, LOW);
       active_nfc = &nfc_3;
       Serial.println("Sensore 3");
       break;
