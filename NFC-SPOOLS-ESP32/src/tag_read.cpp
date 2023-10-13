@@ -161,7 +161,10 @@ bool tag_read_init(int sensor, Spool spool)
     default:
       break;
     }
-    Spool spool[sensor] = Spool(uid_str);
+
+    //Spool spool[sensor] = Spool(uid_str);
+    spool[sensor] = Spool(uid_str);
+
     if (active_nfc->tagPresent())
     {
       NfcTag tag = active_nfc->read();
