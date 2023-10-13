@@ -1,10 +1,14 @@
 #include "spool.h"
 
+Spool::Spool(){}
 Spool::Spool(String uid_str)
 {
     this->uid_str = uid_str;
 }
-
+String Spool::get_spool_uid()
+{
+    return this->uid_str;
+}
 void Spool::put_mat_type(String mat_type)
 {
     this->mat_type = mat_type;

@@ -17,6 +17,7 @@
 #include "parser_json.h"
 #include "init_fs.h"
 #include "def_pages.h"
+#include "spool.h"
 
 #define SS_PIN_1 4  // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5
@@ -60,6 +61,7 @@ NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
 // NfcAdapter nfc_4 = NfcAdapter(&mfrc522_4);
+Spool spool[3] = {} ;
 
 bool initWiFi()
 {
@@ -140,6 +142,9 @@ void setup()
   nfc_2.begin();
   nfc_3.begin();
   // nfc_4.begin();
+  for(int i=0; i<=MAX_SENSORS; i++){
+    tag_read_init(i, spool);
+  }
 }
 
 void loop()

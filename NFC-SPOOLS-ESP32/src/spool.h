@@ -9,8 +9,9 @@ class Spool
     String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 
 public:
+    Spool();
     Spool(String uid_str);
-
+    String get_spool_uid();
     void put_mat_type(String mat_type);
     String get_mat_type();
     void put_mat_color(String mat_color);
