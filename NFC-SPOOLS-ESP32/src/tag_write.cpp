@@ -76,4 +76,5 @@ bool tag_write(int sensor)
             }
         }
     }
+    return false;
 }

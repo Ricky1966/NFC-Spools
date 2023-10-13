@@ -22,7 +22,6 @@ extern const char *PARAM_INPUT_4; //= "gateway";
 extern const char *PARAM_INPUT_5; //= "n_sensors";
 extern String mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 extern String function, functionCalled, uid_str, sensor_n;
-
 void notFound(AsyncWebServerRequest *request)
 {
   request->send(404, "application/json", "{\"message\":\"Not found\"}");
@@ -96,13 +95,13 @@ void def_pages_ws()
       AsyncWebParameter* p = request->getParam(i);
       if (p->name() == "function"){
         function = p->value();
-        Serial.print("Param name: ");
-        Serial.println(function);
+        //Serial.print("Param name: ");
+        //Serial.println(function);
       }
       if (p->name() == "sensor_n"){
         sensor_n = p->value();
-        Serial.print("Param name: ");
-        Serial.println(sensor_n);
+        //Serial.print("Param name: ");
+        //Serial.println(sensor_n);
       }
       if (function == "read"){
         tag_read(sensor_n.toInt());
@@ -188,61 +187,61 @@ String processor(const String &var)
 {
   if (var == "UID")
   {
-    Serial.print("UID : ");
-    Serial.println(uid_str);
+    //Serial.print("UID : ");
+    //Serial.println(uid_str);
     return uid_str;
   }
   if (var == "SEN")
   {
     if (functionCalled == "READ 1")
     {
-      Serial.println("1");
+      //Serial.println("1");
       return "1";
     }
     if (functionCalled == "READ 2")
     {
-      Serial.println("2");
+      //Serial.println("2");
       return "2";
     }
   }
   if (var == "MAT")
   {
-    Serial.println(mat_type);
+    //Serial.println(mat_type);
     return mat_type;
   }
   if (var == "COL")
   {
-    Serial.println(mat_color);
+    //Serial.println(mat_color);
     return mat_color;
   }
   if (var == "LEN")
   {
-    Serial.println(spool_lenght);
+    //Serial.println(spool_lenght);
     return spool_lenght;
   }
   if (var == "WEI")
   {
-    Serial.println(spool_weigth);
+    //Serial.println(spool_weigth);
     return spool_weigth;
   }
   if (var == "TBED")
   {
-    Serial.println(temp_bed);
+    //Serial.println(temp_bed);
     return temp_bed;
   }
   if (var == "TEXT")
   {
-    Serial.println(temp_ext);
+    //Serial.println(temp_ext);
     return temp_ext;
   }
   if (var == "TFLB")
   {
-    Serial.println(t_fl_b);
+    //Serial.println(t_fl_b);
     return t_fl_b;
   }
   if (var == "TFLE")
   {
-    Serial.println(t_fl_e);
+    //Serial.println(t_fl_e);
     return t_fl_e;
   }
   return String();
