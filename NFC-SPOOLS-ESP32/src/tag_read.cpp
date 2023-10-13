@@ -125,7 +125,7 @@ bool tag_read(int sensor)
   return false;
 }
 
-bool tag_read_init(int sensor, Spool spool)
+bool tag_read_init(int sensor, Spool* spool)
 {
 
   NfcAdapter *active_nfc;
