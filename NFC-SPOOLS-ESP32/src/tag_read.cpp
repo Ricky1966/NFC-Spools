@@ -13,6 +13,10 @@ extern char uid[30], tag_msg[100];
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 extern Spool spool[];
 
+
+/**
+ * 
+ */
 void loader(int i, String tag_msg_str, Spool* spool)
 {
   switch (i)
@@ -54,6 +58,10 @@ void loader(int i, String tag_msg_str, Spool* spool)
   }
 }
 
+
+/**
+ * 
+ */
 bool tag_read(int sensor)
 {
 
