@@ -29,26 +29,17 @@
 #include "def_pages.h"
 #include "spool.h"
 
-/**
- * @brief Spool class
- * 
- * Spool class long description.....
- * 
- * @author Ricky1966
- * @author simonegallina (supervisor)
- * 
- * @version 1.0
- */
-
 #define SS_PIN_1 4  // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5
 #define SS_PIN_3 15 // ESP32 pin GPI15
 #define RST_PIN 27 // ESP32 pin GPIO27
+
 const char *PARAM_INPUT_1 = "ssid";
 const char *PARAM_INPUT_2 = "pass";
 const char *PARAM_INPUT_3 = "ip";
 const char *PARAM_INPUT_4 = "gateway";
 const char *PARAM_INPUT_5 = "n_sensors";
+
 String ssid;
 String pass;
 String ip;
@@ -83,7 +74,9 @@ NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
 Spool spool[3] = {} ;
 
 /**
+ * initWifi
  * 
+ * @brief Initializes WiFi connection
  */
 bool initWiFi()
 {
@@ -129,7 +122,9 @@ bool initWiFi()
 }
 
 /**
+ * setup
  * 
+ * @brief General setup
  */
 void setup()
 {
@@ -155,6 +150,7 @@ void setup()
     Serial.println(IP);
     def_pages_ap();
   }
+
   server.begin();
   SPI.begin();
   mfrc522_1.PCD_Init();
@@ -164,13 +160,16 @@ void setup()
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
+  
   for(int i=0; i<=MAX_SENSORS; i++){
     tag_read_init(i, spool); // errore conta da zerodevosistemare TUTTI i riferimenti
   }
 }
 
 /**
+ * loop
  * 
+ * @brief Runtime Loop
  */
 void loop()
 {
