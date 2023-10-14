@@ -1,3 +1,14 @@
+/**
+ * @brief Spool class
+ * 
+ * FileSystem init long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #ifndef _INIT_FS_H
 #define _INIT_FS_H
 

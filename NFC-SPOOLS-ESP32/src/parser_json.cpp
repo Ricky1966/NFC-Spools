@@ -1,7 +1,25 @@
+/**
+ * @brief Spool class
+ * 
+ * JSon Parser long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #include "parser_json.h"
 
+
+/**
+ * 
+ */
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 
+/**
+ * 
+ */
 String parser(int sensor)
 {
   StaticJsonDocument<300> data;

@@ -1,3 +1,14 @@
+/**
+ * @brief Spool class
+ * 
+ * Spool class long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #include <Arduino.h>
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
@@ -8,7 +19,6 @@
 #include <Preferences.h>
 #include <ArduinoJson.h>
 #include <Update.h>
-
 #include "tag_clear.h"
 #include "tag_erase.h"
 #include "tag_format.h"
@@ -19,13 +29,21 @@
 #include "def_pages.h"
 #include "spool.h"
 
+/**
+ * @brief Spool class
+ * 
+ * Spool class long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #define SS_PIN_1 4  // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5
-#define SS_PIN_3 15 // ESP32 pin GPIO2
-// #define SS_PIN_4 10  // ESP32 pin GPI10
-// #define MAX_SENSORS 4 //max number of sensors   --> moved to new_tag_read.h
+#define SS_PIN_3 15 // ESP32 pin GPI15
 #define RST_PIN 27 // ESP32 pin GPIO27
-// Search for parameter in HTTP POST request
 const char *PARAM_INPUT_1 = "ssid";
 const char *PARAM_INPUT_2 = "pass";
 const char *PARAM_INPUT_3 = "ip";
@@ -48,6 +66,9 @@ String wrt_msg_str;
 String mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 String function, sensor_n;
 
+/**
+ * 
+ */
 AsyncWebServer server(80);
 Preferences preferences;
 IPAddress localIP;
@@ -56,16 +77,16 @@ IPAddress subnet(255, 255, 0, 0);
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
 MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
-// MFRC522 mfrc522_4(SS_PIN_4, RST_PIN);
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
-// NfcAdapter nfc_4 = NfcAdapter(&mfrc522_4);
 Spool spool[3] = {} ;
 
+/**
+ * 
+ */
 bool initWiFi()
 {
-  // looking for stored preference
   preferences.begin("nfc-bobine", false);
   ssid = preferences.getString("ssid", "");
   pass = preferences.getString("pass", "");
@@ -107,6 +128,9 @@ bool initWiFi()
   return true;
 }
 
+/**
+ * 
+ */
 void setup()
 {
   Serial.begin(115200);
@@ -136,17 +160,18 @@ void setup()
   mfrc522_1.PCD_Init();
   mfrc522_2.PCD_Init();
   mfrc522_3.PCD_Init();
-  // mfrc522_4.PCD_Init();
   delay(1000);
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
-  // nfc_4.begin();
   for(int i=0; i<=MAX_SENSORS; i++){
-    tag_read_init(i, spool);
+    tag_read_init(i, spool); // errore conta da zerodevosistemare TUTTI i riferimenti
   }
 }
 
+/**
+ * 
+ */
 void loop()
 {
 }

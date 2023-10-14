@@ -1,14 +1,26 @@
+/**
+ * @brief Spool class
+ * 
+ * Tag Read function long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #include "tag_read.h"
 #include "spool.h"
 
+/**
+ * 
+ */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
 extern MFRC522 mfrc522_3;
-
 extern NfcAdapter nfc_1;
 extern NfcAdapter nfc_2;
 extern NfcAdapter nfc_3;
-
 extern char uid[30], tag_msg[100];
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 extern Spool spool[];
@@ -72,28 +84,22 @@ bool tag_read(int sensor)
     switch (sensor)
     {
     case 1:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_1);
       digitalWrite(SS_PIN_1, LOW);
       digitalWrite(SS_PIN_2, HIGH);
       digitalWrite(SS_PIN_3, HIGH);
       active_nfc = &nfc_1;
-      //Serial.println("Sensore 1");
       break;
     case 2:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_2);
       digitalWrite(SS_PIN_1, HIGH);
       digitalWrite(SS_PIN_2, LOW);
       digitalWrite(SS_PIN_3, HIGH);
       active_nfc = &nfc_2;
-      //Serial.println("Sensore 2");
       break;
     case 3:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_3);
       digitalWrite(SS_PIN_1, HIGH);
       digitalWrite(SS_PIN_2, HIGH);
       digitalWrite(SS_PIN_3, LOW);
       active_nfc = &nfc_3;
-      //Serial.println("Sensore 3");
       break;
     default:
       break;
@@ -133,6 +139,9 @@ bool tag_read(int sensor)
   return false;
 }
 
+/**
+ * 
+ */
 bool tag_read_init(int sensor, Spool* spool)
 {
 
@@ -143,34 +152,27 @@ bool tag_read_init(int sensor, Spool* spool)
     switch (sensor)
     {
     case 1:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_1);
       digitalWrite(SS_PIN_1, LOW);
       digitalWrite(SS_PIN_2, HIGH);
       digitalWrite(SS_PIN_3, HIGH);
       active_nfc = &nfc_1;
-      Serial.println("Sensore 1");
       break;
     case 2:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_2);
       digitalWrite(SS_PIN_1, HIGH);
       digitalWrite(SS_PIN_2, LOW);
       digitalWrite(SS_PIN_3, HIGH);
       active_nfc = &nfc_2;
-      Serial.println("Sensore 2");
       break;
     case 3:
-      // NfcAdapter nfc = NfcAdapter(&mfrc522_3);
       digitalWrite(SS_PIN_1, HIGH);
       digitalWrite(SS_PIN_2, HIGH);
       digitalWrite(SS_PIN_3, LOW);
       active_nfc = &nfc_3;
-      Serial.println("Sensore 3");
       break;
     default:
       break;
     }
 
-    //Spool spool[sensor] = Spool(uid_str);
     spool[sensor] = Spool(uid_str);
 
     if (active_nfc->tagPresent())

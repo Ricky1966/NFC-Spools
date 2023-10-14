@@ -1,12 +1,27 @@
-/*
-// Questa è relativa all'inizializzazione del filesystem e la lettura e scrittura
-// delle preference
-*/
+/**
+ * @brief Spool class
+ * 
+ * Filesystem init long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
+
 #include "init_fs.h"
 
+/**
+ * 
+ */
 extern String ssid, pass, ip, gateway, n_sensors;
 extern Preferences preferences;
 
+
+/**
+ * 
+ */
 void initLittleFS()
 {
   if (!LittleFS.begin(true))
@@ -17,7 +32,9 @@ void initLittleFS()
   preferences.begin("nfc-bobine", false);
 }
 
-// Read File from LittleFS
+/**
+ * 
+ */
 void readPref()
 {
   ssid = preferences.getString("ssid", "");
@@ -27,6 +44,9 @@ void readPref()
   n_sensors = preferences.getString("n_sensors", "1");
 }
 
+/**
+ * 
+ */
 void writePref(const char *pref, const char *message)
 {
   preferences.putString(pref, message);

@@ -1,18 +1,19 @@
-/*
-// Questa è la procedura per creare le pagine del server
-// La funzione def_pages_ap() definisce la funzione chiamata quando non vengono
-// trovate le chiavi di accesso alla rete wifi e permette di inserirle nella pagina e salvarle tra le
-// preferenze.
-// La funzione def_pages_ws() si occupa di create le pagine del server per la gesione
-// delle varie fasi di lettura e scrittura dei tag
-// Infine la funzione processor() modifica le variabili della pagina index.html
-// TODO :
-// La pagina per la scrittura dei valori sul tag.
-*/
+/**
+ * @brief Spool class
+ * 
+ * Web Server pages definition.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
 
 #include "def_pages.h"
 
-// AsyncWebServer server(80);
+/**
+ * 
+ */
 extern AsyncWebServer server;
 extern String ssid, pass, ip, gateway, n_sensors;
 extern const char *PARAM_INPUT_1; //= "ssid";
@@ -22,11 +23,19 @@ extern const char *PARAM_INPUT_4; //= "gateway";
 extern const char *PARAM_INPUT_5; //= "n_sensors";
 extern String mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 extern String function, functionCalled, uid_str, sensor_n;
+
+
+/**
+ * 
+ */
 void notFound(AsyncWebServerRequest *request)
 {
   request->send(404, "application/json", "{\"message\":\"Not found\"}");
 }
 
+/**
+ * 
+ */
 void def_pages_ap()
 {
   Serial.println("Sono qua");
@@ -83,6 +92,9 @@ void def_pages_ap()
       ESP.restart(); });
 }
 
+/**
+ * 
+ */
 void def_pages_ws()
 {
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -95,13 +107,9 @@ void def_pages_ws()
       AsyncWebParameter* p = request->getParam(i);
       if (p->name() == "function"){
         function = p->value();
-        //Serial.print("Param name: ");
-        //Serial.println(function);
       }
       if (p->name() == "sensor_n"){
         sensor_n = p->value();
-        //Serial.print("Param name: ");
-        //Serial.println(sensor_n);
       }
       if (function == "read"){
         tag_read(sensor_n.toInt());
@@ -183,65 +191,56 @@ void def_pages_ws()
     } });
 }
 
+/**
+ * 
+ */
 String processor(const String &var)
 {
   if (var == "UID")
   {
-    //Serial.print("UID : ");
-    //Serial.println(uid_str);
     return uid_str;
   }
   if (var == "SEN")
   {
     if (functionCalled == "READ 1")
     {
-      //Serial.println("1");
       return "1";
     }
     if (functionCalled == "READ 2")
     {
-      //Serial.println("2");
       return "2";
     }
   }
   if (var == "MAT")
   {
-    //Serial.println(mat_type);
     return mat_type;
   }
   if (var == "COL")
   {
-    //Serial.println(mat_color);
     return mat_color;
   }
   if (var == "LEN")
   {
-    //Serial.println(spool_lenght);
     return spool_lenght;
   }
   if (var == "WEI")
   {
-    //Serial.println(spool_weigth);
     return spool_weigth;
   }
   if (var == "TBED")
   {
-    //Serial.println(temp_bed);
     return temp_bed;
   }
   if (var == "TEXT")
   {
-    //Serial.println(temp_ext);
     return temp_ext;
   }
   if (var == "TFLB")
   {
-    //Serial.println(t_fl_b);
     return t_fl_b;
   }
   if (var == "TFLE")
   {
-    //Serial.println(t_fl_e);
     return t_fl_e;
   }
   return String();

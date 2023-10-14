@@ -1,3 +1,14 @@
+/**
+ * @brief Spool class
+ * 
+ * Tag Write function long description.....
+ * 
+ * @author Ricky1966
+ * @author simonegallina (supervisor)
+ * 
+ * @version 1.0
+ */
+
 #ifndef _TAG_WRITE_H
 #define _TAG_WRITE_H
 
