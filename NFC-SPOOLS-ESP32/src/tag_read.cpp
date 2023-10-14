@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * External viariables
+ * External variables
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -31,8 +31,8 @@ extern Spool spool[];
  * @brief Set data to a tag
  * 
  * @param int     i           Data type
- * @param Stirng  tag_msg_str Contains message read from tag 
- * @param Sppol*  spool       Active spool
+ * @param String  tag_msg_str Contains message read from tag 
+ * @param Spool*  spool       Active spool
  */
 void loader(int i, String tag_msg_str, Spool* spool)
 {

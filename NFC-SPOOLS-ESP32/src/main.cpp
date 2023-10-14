@@ -73,6 +73,7 @@ NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
 Spool spool[3] = {} ;
 
+
 /**
  * initWifi
  * 
@@ -120,6 +121,7 @@ bool initWiFi()
   Serial.println(WiFi.localIP());
   return true;
 }
+
 
 /**
  * setup
