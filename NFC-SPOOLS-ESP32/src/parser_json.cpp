@@ -25,7 +25,7 @@ String parser(int sensor)
   StaticJsonDocument<300> data;
   Serial.print("JSn called, sensor :");
   Serial.println(sensor);
-  data["Sensor"] = sensor;
+  data["Spot"] = sensor;
   data["UID"] = uid_str;
   data["Material"] = mat_type;
   data["Color"] = mat_color;

@@ -130,17 +130,21 @@ void def_pages_ws()
     request->send(LittleFS, "/index.html", "text/html", false, processor); });
   server.serveStatic("/", LittleFS, "/").setDefaultFile("/index.html");
   // Route JSON request
-  server.on("/json1", HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on("/jsonA", HTTP_GET, [](AsyncWebServerRequest *request)
+            {
+      tag_read(0);
+      String response = parser(0);
+      request->send(200, "application/json", response); });
+  server.on("/jsonB", HTTP_GET, [](AsyncWebServerRequest *request)
             {
       tag_read(1);
       String response = parser(1);
       request->send(200, "application/json", response); });
-  server.on("/json2", HTTP_GET, [](AsyncWebServerRequest *request)
+   server.on("/jsonC", HTTP_GET, [](AsyncWebServerRequest *request)
             {
       tag_read(2);
       String response = parser(2);
       request->send(200, "application/json", response); });
-
   server.onNotFound(notFound);
 
   server.on("/otaupdate", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -202,13 +206,17 @@ String processor(const String &var)
   }
   if (var == "SEN")
   {
+    if (functionCalled == "READ 0")
+    {
+      return "A";
+    }
     if (functionCalled == "READ 1")
     {
-      return "1";
+      return "B";
     }
     if (functionCalled == "READ 2")
     {
-      return "2";
+      return "C";
     }
   }
   if (var == "MAT")

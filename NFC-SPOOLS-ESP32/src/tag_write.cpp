@@ -38,19 +38,19 @@ bool tag_write(int sensor)
     {
         switch (sensor)
         {
-        case 1:
+        case 0:
             digitalWrite(SS_PIN_1, LOW);
             digitalWrite(SS_PIN_2, HIGH);
             digitalWrite(SS_PIN_3, HIGH);
             active_nfc = &nfc_1;
             break;
-        case 2:
+        case 1:
             digitalWrite(SS_PIN_2, LOW);
             digitalWrite(SS_PIN_1, HIGH);
             digitalWrite(SS_PIN_3, HIGH);
             active_nfc = &nfc_2;
             break;
-        case 3:
+        case 2:
             digitalWrite(SS_PIN_3, LOW);
             digitalWrite(SS_PIN_1, HIGH);
             digitalWrite(SS_PIN_2, HIGH);
