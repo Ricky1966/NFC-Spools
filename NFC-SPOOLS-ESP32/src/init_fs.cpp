@@ -13,14 +13,15 @@
 #include "init_fs.h"
 
 /**
- * 
+ * External variables 
  */
 extern String ssid, pass, ip, gateway, n_sensors;
 extern Preferences preferences;
 
 
 /**
- * 
+ * initLittleFS
+ * @brief initialization of Filesystem
  */
 void initLittleFS()
 {
@@ -33,7 +34,8 @@ void initLittleFS()
 }
 
 /**
- * 
+ * readPref
+ * @brief read stored preferences
  */
 void readPref()
 {
@@ -45,7 +47,11 @@ void readPref()
 }
 
 /**
+ * writePref
+ * @brief write preferences passed by setup.html
  * 
+ * @param const char  *pref     pointer to preference name
+ * @param const char  *message  pointer to preference value
  */
 void writePref(const char *pref, const char *message)
 {

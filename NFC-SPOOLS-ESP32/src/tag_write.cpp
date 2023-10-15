@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * 
+ * External variables 
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -27,14 +27,17 @@ extern Spool spool[];
 
 
 /**
+ * tag_write
+ * @brief write new values into a tag
  * 
+ * @param sensor    sensor  number of sensor 
  */
 bool tag_write(int sensor)
 {
 
     NfcAdapter *active_nfc;
 
-    if ((sensor > 0) && (sensor <= MAX_SENSORS))
+    if ((sensor >= 0) && (sensor <= MAX_SENSORS))
     {
         switch (sensor)
         {
@@ -45,15 +48,15 @@ bool tag_write(int sensor)
             active_nfc = &nfc_1;
             break;
         case 1:
-            digitalWrite(SS_PIN_2, LOW);
             digitalWrite(SS_PIN_1, HIGH);
+            digitalWrite(SS_PIN_2, LOW);
             digitalWrite(SS_PIN_3, HIGH);
             active_nfc = &nfc_2;
             break;
         case 2:
-            digitalWrite(SS_PIN_3, LOW);
             digitalWrite(SS_PIN_1, HIGH);
             digitalWrite(SS_PIN_2, HIGH);
+            digitalWrite(SS_PIN_3, LOW);
             active_nfc = &nfc_3;
             Serial.println("Write Sensore 3");
             break;

@@ -12,7 +12,7 @@
 #include "def_pages.h"
 
 /**
- * 
+ * External variables
  */
 extern AsyncWebServer server;
 extern String ssid, pass, ip, gateway, n_sensors;
@@ -26,7 +26,10 @@ extern String function, functionCalled, uid_str, sensor_n;
 
 
 /**
+ * notFound
+ * @brief send error page to client
  * 
+ * @param AsyncWebServerRequest *request  type of error and JSon answer
  */
 void notFound(AsyncWebServerRequest *request)
 {
@@ -34,7 +37,8 @@ void notFound(AsyncWebServerRequest *request)
 }
 
 /**
- * 
+ * def_pages_ap
+ * @brief definition of Access Point page
  */
 void def_pages_ap()
 {
@@ -93,7 +97,8 @@ void def_pages_ap()
 }
 
 /**
- * 
+ * def_pages_ws
+ * @brief definition of Web Server pages
  */
 void def_pages_ws()
 {
@@ -110,6 +115,8 @@ void def_pages_ws()
       }
       if (p->name() == "sensor_n"){
         sensor_n = p->value();
+        Serial.print("SENSOR");
+        Serial.println(sensor_n);
       }
       if (function == "read"){
         tag_read(sensor_n.toInt());
@@ -196,7 +203,10 @@ void def_pages_ws()
 }
 
 /**
+ * processor
+ * @brief processing the variables to send to client for page
  * 
+ * @param String  &var  refer to variable address
  */
 String processor(const String &var)
 {

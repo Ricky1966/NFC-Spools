@@ -13,12 +13,15 @@
 
 
 /**
- * 
+ * External variables 
  */
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 
 /**
+ * parser
+ * @brief JSon parser for API
  * 
+ * @param int sensor  number of sensor
  */
 String parser(int sensor)
 {

@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * 
+ * External variables 
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -26,7 +26,8 @@ extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed
 extern Spool spool[];
 
 /** 
- *
+ * tag_erase
+ * @brief   Tag eraser
  */
 bool tag_erase()
 {

@@ -97,7 +97,7 @@ bool tag_read(int sensor)
 
   NfcAdapter *active_nfc;
 
-  if ((sensor > 0) && (sensor <= MAX_SENSORS))
+  if ((sensor >= 0) && (sensor <= MAX_SENSORS))
   {
     switch (sensor)
     {
@@ -171,7 +171,7 @@ bool tag_read_init(int sensor, Spool* spool)
 
   NfcAdapter *active_nfc;
 
-  if ((sensor > 0) && (sensor <= MAX_SENSORS))
+  if ((sensor >= 0) && (sensor <= MAX_SENSORS))
   {
     switch (sensor)
     {
