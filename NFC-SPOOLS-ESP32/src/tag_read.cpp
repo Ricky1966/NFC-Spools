@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * 
+ * External variables
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -27,7 +27,12 @@ extern Spool spool[];
 
 
 /**
+ * loader
+ * @brief Set data to a tag
  * 
+ * @param int     i           Data type
+ * @param String  tag_msg_str Contains message read from tag 
+ * @param Spool*  spool       Active spool
  */
 void loader(int i, String tag_msg_str, Spool* spool)
 {
@@ -37,34 +42,42 @@ void loader(int i, String tag_msg_str, Spool* spool)
     mat_type = tag_msg_str;
     spool->put_mat_type(tag_msg_str);
     break;
+
   case 1:
     mat_color = tag_msg_str;
     spool->put_mat_color(tag_msg_str);
     break;
+
   case 2:
     spool_lenght = tag_msg_str;
     spool->put_lenght(tag_msg_str);
     break;
+
   case 3:
     spool_weigth = tag_msg_str;
     spool->put_weigth(tag_msg_str);
     break;
+
   case 4:
     temp_bed = tag_msg_str;
     spool->put_temp_bed(tag_msg_str);
     break;
+
   case 5:
     temp_ext = tag_msg_str;
     spool->put_temp_extruder(tag_msg_str);
     break;
+
   case 6:
     t_fl_b = tag_msg_str;
     spool->put_bed_first_layer(tag_msg_str);
     break;
+
   case 7:
     t_fl_e = tag_msg_str;
     spool->put_ext_first_layer(tag_msg_str);
     break;
+
   default:
     break;
   }
@@ -72,7 +85,12 @@ void loader(int i, String tag_msg_str, Spool* spool)
 
 
 /**
+ * tag_read
+ * @brief Extracts data from tag
  * 
+ * @param   int sensor  Sensor number
+ * 
+ * @return  bool        Operation exit code
  */
 bool tag_read(int sensor)
 {
@@ -139,8 +157,14 @@ bool tag_read(int sensor)
   return false;
 }
 
+
 /**
+ * tag_read_init
  * 
+ * @brief Initializes spools for reading
+ * 
+ * @param int sensor    Number of available sensors
+ * @param Spool*  spool Available spools array
  */
 bool tag_read_init(int sensor, Spool* spool)
 {
@@ -205,5 +229,6 @@ bool tag_read_init(int sensor, Spool* spool)
       return true;
     }
   }
+  
   return false;
 }
