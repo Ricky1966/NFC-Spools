@@ -223,7 +223,7 @@ bool tag_read_init(int sensor, Spool* spool)
           }
           tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
           Serial.println(tag_msg_str);
-          loader(i, tag_msg_str, &spool[sensor]);
+          loader(i, tag_msg_str, spool);
         }
       }
       Serial.println("Oggetto creato");
