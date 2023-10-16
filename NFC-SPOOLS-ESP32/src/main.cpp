@@ -162,11 +162,12 @@ void setup()
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
-  /*
+  
   for(int i=0; i<=MAX_SENSORS; i++){
     tag_read_init(i, spool); // error ???
+    delay(5000);
   }
-  */
+  
 }
 
 /**
