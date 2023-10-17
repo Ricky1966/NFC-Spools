@@ -162,9 +162,11 @@ void setup()
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
+
   tag_read_init(0, spool+0); 
   tag_read_init(1, spool+1); 
   tag_read_init(2, spool+2); 
+
 }
 
 /**
