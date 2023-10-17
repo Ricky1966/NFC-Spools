@@ -204,7 +204,7 @@ bool tag_read_init(int sensor, Spool* spool)
     {
       NfcTag tag = active_nfc->read();
       uid_str = tag.getUidString();
-      spool[sensor] = Spool(uid_str);
+      *spool = Spool(uid_str);
       Serial.println(uid_str);
       uid_str.toCharArray(uid, uid_str.length() + 1);
       if (tag.hasNdefMessage())
