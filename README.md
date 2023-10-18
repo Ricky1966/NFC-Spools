@@ -1,7 +1,7 @@
 # NFC-Spools
 This is a new version of NFC-Bobine
 
-...
+```
 #ifndef NdefMessage_h
 #define NdefMessage_h
 
@@ -9,7 +9,7 @@ This is a new version of NFC-Bobine
 #include <NdefRecord.h>
 
 #define MAX_NDEF_RECORDS 4-> 8
-...
+```
 
 First start:
 - open browser;
