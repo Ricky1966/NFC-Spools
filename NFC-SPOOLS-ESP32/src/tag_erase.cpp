@@ -21,15 +21,61 @@ extern MFRC522 mfrc522_3;
 extern NfcAdapter nfc_1;
 extern NfcAdapter nfc_2;
 extern NfcAdapter nfc_3;
-extern char uid[30], tag_msg[100];
-extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
-extern Spool spool[];
 
 /** 
  * tag_erase
  * @brief   Tag eraser
  */
-bool tag_erase()
+bool tag_erase(int sensor)
 {
-    return true;
+
+    NfcAdapter *active_nfc;
+
+    if ((sensor >= 0) && (sensor <= MAX_SENSORS))
+    {
+        switch (sensor)
+        {
+        case 0:
+            digitalWrite(SS_PIN_1, LOW);
+            digitalWrite(SS_PIN_2, HIGH);
+            digitalWrite(SS_PIN_3, HIGH);
+            active_nfc = &nfc_1;
+            break;
+        case 1:
+            digitalWrite(SS_PIN_1, HIGH);
+            digitalWrite(SS_PIN_2, LOW);
+            digitalWrite(SS_PIN_3, HIGH);
+            active_nfc = &nfc_2;
+            break;
+        case 2:
+            digitalWrite(SS_PIN_1, HIGH);
+            digitalWrite(SS_PIN_2, HIGH);
+            digitalWrite(SS_PIN_3, LOW);
+            active_nfc = &nfc_3;
+            Serial.println("Write Sensore 3");
+            break;
+        default:
+            break;
+        }
+
+        Serial.println("\nPlace a formatted Mifare Classic NFC tag on the reader.");
+
+        if (active_nfc->tagPresent())
+        {
+            boolean success = active_nfc->erase();
+            if (success)
+            {
+                Serial.println("Success.");
+                delay(3000);
+                return true;
+            }
+            else
+            {
+                Serial.println("Erase failed");
+                delay(3000);
+                return false;
+            }
+        }
+    }
+    return false;
 }
