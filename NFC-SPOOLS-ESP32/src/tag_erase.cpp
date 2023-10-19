@@ -65,7 +65,7 @@ bool tag_erase(int sensor)
             boolean success = active_nfc->erase();
             if (success)
             {
-                Serial.println("Success.");
+                Serial.println("Erase Success.");
                 delay(3000);
                 return true;
             }

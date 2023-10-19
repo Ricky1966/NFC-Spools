@@ -11,6 +11,7 @@
 
 #include "def_pages.h"
 
+
 /**
  * External variables
  */
@@ -125,13 +126,13 @@ void def_pages_ws()
         tag_write(sensor_n.toInt());
       }
       if (function == "clear"){
-        //tag_clear(sensor_n.toInt());
+        tag_clean(sensor_n.toInt());
       }
       if (function == "erase"){
-        //tag_erase(sensor_n.toInt());
+        tag_erase(sensor_n.toInt());
       }
       if (function == "format"){
-        //tag_format(sensor_n.toInt());
+        tag_format(sensor_n.toInt());
       }
     }
     request->send(LittleFS, "/index.html", "text/html", false, processor); });

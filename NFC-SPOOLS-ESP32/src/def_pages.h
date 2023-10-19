@@ -26,6 +26,9 @@
 #include "init_fs.h"
 #include "tag_read.h"
 #include "tag_write.h"
+#include "tag_clean.h"
+#include "tag_erase.h"
+#include "tag_format.h"
 #include "parser_json.h"
 
 /**

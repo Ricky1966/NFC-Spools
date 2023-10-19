@@ -66,7 +66,7 @@ bool tag_format(int sensor)
             boolean success = active_nfc->format();
             if (success)
             {
-                Serial.println("Success.");
+                Serial.println("Format Success.");
                 delay(3000);
                 return true;
             }

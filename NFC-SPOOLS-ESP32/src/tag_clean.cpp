@@ -66,7 +66,7 @@ bool tag_clean(int sensor)
             boolean success = active_nfc->clean();
             if (success)
             {
-                Serial.println("Success.");
+                Serial.println("Clean Success.");
                 delay(3000);
                 return true;
             }
