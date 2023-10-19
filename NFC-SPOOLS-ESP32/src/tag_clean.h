@@ -1,7 +1,7 @@
 /**
- * @brief Spool class
+ * @brief Tag Clear 
  * 
- * Tag Clear function long description.....
+ * Tag Clear function clean tag to zero
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

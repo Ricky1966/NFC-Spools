@@ -1,7 +1,7 @@
 /**
  * @brief JSon parser
  * 
- * JSon Parser long description.....
+ * JSon Parser definition for a JSon
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

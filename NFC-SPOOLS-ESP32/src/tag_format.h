@@ -1,7 +1,7 @@
 /**
- * @brief Spool class
+ * @brief Tag Format
  * 
- * Tag Format function long description.....
+ * Tag Format function format tag to NDEF
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

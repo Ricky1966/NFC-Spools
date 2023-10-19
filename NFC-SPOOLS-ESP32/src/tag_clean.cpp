@@ -1,7 +1,7 @@
 /**
  * @brief Tag Clean 
  * 
- * Tag Clear function long description.....
+ * Tag Clear function clean tag to zero
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

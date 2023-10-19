@@ -1,5 +1,5 @@
 /**
- * @brief Spool class
+ * @brief Web Server
  * 
  * Web Server pages definition.....
  * 

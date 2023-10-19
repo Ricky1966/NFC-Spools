@@ -1,7 +1,7 @@
 /**
  * @brief Tag Read
  * 
- * Tag Read function long description.....
+ * Tag Read function allows you to read tag data
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

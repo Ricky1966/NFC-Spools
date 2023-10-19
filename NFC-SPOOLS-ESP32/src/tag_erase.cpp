@@ -1,7 +1,7 @@
 /**
  * @brief Tag Erase
  * 
- * Tag Erase function long description.....
+ * Tag Erase function erase tag to zero
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)
