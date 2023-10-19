@@ -1,7 +1,7 @@
 /**
- * @brief Spool class
+ * @brief Main class
  * 
- * Spool class long description.....
+ * Main long description.....
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)

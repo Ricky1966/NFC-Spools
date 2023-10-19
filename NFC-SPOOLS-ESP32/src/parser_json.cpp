@@ -1,5 +1,5 @@
 /**
- * @brief Spool class
+ * @brief JSon parser
  * 
  * JSon Parser long description.....
  * 

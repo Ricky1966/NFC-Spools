@@ -1,5 +1,5 @@
 /**
- * @brief Spool class
+ * @brief Filesystem
  * 
  * Filesystem init long description.....
  * 

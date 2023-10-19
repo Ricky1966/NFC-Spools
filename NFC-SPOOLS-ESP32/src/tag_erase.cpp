@@ -1,5 +1,5 @@
 /**
- * @brief Spool class
+ * @brief Tag Erase
  * 
  * Tag Erase function long description.....
  * 

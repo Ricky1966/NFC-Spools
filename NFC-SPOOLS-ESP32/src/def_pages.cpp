@@ -1,5 +1,5 @@
 /**
- * @brief Spool class
+ * @brief Web Server
  * 
  * Web Server pages definition.....
  * 
@@ -116,8 +116,8 @@ void def_pages_ws()
       }
       if (p->name() == "sensor_n"){
         sensor_n = p->value();
-        Serial.print("SENSOR");
-        Serial.println(sensor_n);
+        //Serial.print("SENSOR");
+        //Serial.println(sensor_n);
       }
       if (function == "read"){
         tag_read(sensor_n.toInt());
@@ -215,7 +215,7 @@ String processor(const String &var)
   {
     return uid_str;
   }
-  if (var == "SEN")
+  if (var == "SLO")
   {
     if (functionCalled == "READ 0")
     {

@@ -1,7 +1,7 @@
 /**
- * @brief Spool class
+ * @brief Tag Format
  * 
- * Tag Read function long description.....
+ * Tag Format function long description.....
  * 
  * @author Ricky1966
  * @author simonegallina (supervisor)
