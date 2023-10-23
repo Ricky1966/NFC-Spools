@@ -206,61 +206,48 @@ void def_pages_ws()
 /**
  * processor
  * @brief processing the variables to send to client for page
- * 
+ * 			change PLACEHOLDER with html code
  * @param String  &var  refer to variable address
+ * @return placeholder forindex.html %placeholder%
  */
 String processor(const String &var)
 {
-  if (var == "UID")
-  {
-    return uid_str;
-  }
-  if (var == "SLO")
-  {
-    if (functionCalled == "READ 0")
+	String placeholder = ""; 
+  if (functionCalled == "READ 0")
     {
-      return "A";
-    }
-    if (functionCalled == "READ 1")
-    {
-      return "B";
-    }
-    if (functionCalled == "READ 2")
-    {
-      return "C";
-    }
-  }
-  if (var == "MAT")
-  {
-    return mat_type;
-  }
-  if (var == "COL")
-  {
-    return mat_color;
-  }
-  if (var == "LEN")
-  {
-    return spool_lenght;
-  }
-  if (var == "WEI")
-  {
-    return spool_weigth;
-  }
-  if (var == "TBED")
-  {
-    return temp_bed;
-  }
-  if (var == "TEXT")
-  {
-    return temp_ext;
-  }
-  if (var == "TFLB")
-  {
-    return t_fl_b;
-  }
-  if (var == "TFLE")
-  {
-    return t_fl_e;
-  }
-  return String();
+      placeholder += "<p class=\"state\">SLOT: A </p>";
+    } else if (functionCalled == "READ 1"){
+      placeholder += "<p class=\"state\">SLOT: B </p>";
+    } else if  (functionCalled == "READ 2"){
+      placeholder += "<p class=\"state\">SLOT: C </p>";
+    } 
+	placeholder += "<p class=\"state\">UID : ";
+  placeholder += uid_str;
+  placeholder +="</p>";
+  placeholder += "<p class=\"state\">Material: ";
+  placeholder += mat_type;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">Color: ";
+  placeholder += mat_color;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">Lenght: ";
+  placeholder += spool_lenght;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">Weigth: ";
+  placeholder += spool_weigth;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">T Bed: ";
+  placeholder += temp_bed;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">T Extrude: ";
+  placeholder += temp_ext;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">T First Layer Bed: ";
+  placeholder += t_fl_b;
+  placeholder +="</p>";
+	placeholder += "<p class=\"state\">T First Layer Extrude: ";
+  placeholder += t_fl_e;
+  placeholder +="</p>";
+  
+  return placeholder;
 }
