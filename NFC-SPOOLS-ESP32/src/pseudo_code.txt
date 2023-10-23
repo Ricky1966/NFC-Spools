@@ -1,0 +1,46 @@
+###
+Ti propongo l'algoritmo del programma scritto in pseudo-codice (che è una specie di
+linguaggio di programmazione fantasioso che serve solo per descrivere l'algoritmo).
+
+Sebbene non sia formalmente corretto perché lo pseudo-codice ha la sua sintassi,
+per non fare confusione utilizzerò una sintassi molto simil-C.
+###
+
+
+MAIN_BEGIN
+
+SETUP_BEGIN
+    Serial.Init()
+    Wifi.Init()
+    Server.Init()
+
+    for (i=0; i< NUM_SENSORI; i++)
+    {
+        NFCtag[i].Init()        // Array dei sensori
+        Spool[i].Init()         // Array degli oggetti Spool (=tag sulle bobine)
+    }
+SETUP_END
+
+
+
+LOOP_BEGIN
+    // in qualche modo non ancora identificato arriva un impulso esterno
+
+    Azione = ExternalInput
+
+    switch (Azione)
+        case InizioStampa
+        {
+            ActiveSpool = Seleziona_Spool_Attivo()
+            SpoolAttivo.readData()
+        }
+
+        case FineStampa
+        {
+            SpoolAttivo.AggiornaDati(NuoviDati)     // calcola l'aggiornamento dei dati dopo la stampa
+            SpoolAttivo.updateData()                // scrive sul tag i dati aggiornati
+        }
+LOOP_END
+
+
+MAIN_END
