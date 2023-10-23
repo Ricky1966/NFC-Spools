@@ -28,6 +28,7 @@
 #include "init_fs.h"
 #include "def_pages.h"
 #include "spool.h"
+#include "spool_init.h"
 
 #define SS_PIN_1 4  // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5
@@ -165,6 +166,9 @@ void setup()
   tag_read_init(0, spool+0);
   tag_read_init(1, spool+1); 
   tag_read_init(2, spool+2); 
+  spool_print(0, spool+0);
+  spool_print(1, spool+1);
+  spool_print(2, spool+2);
 }
 
 /**
