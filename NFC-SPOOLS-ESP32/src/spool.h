@@ -22,6 +22,7 @@ class Spool
     public:
         Spool();
         Spool(String uid_str);
+        void put_uid_str(String);
         String get_spool_uid();
         void put_mat_type(String mat_type);
         String get_mat_type();
