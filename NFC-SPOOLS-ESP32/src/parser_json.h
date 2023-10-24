@@ -1,11 +1,11 @@
 /**
- * @brief JSon Parser 
- * 
+ * @brief JSon Parser
+ *
  * JSon Parser definition for a JSon
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 

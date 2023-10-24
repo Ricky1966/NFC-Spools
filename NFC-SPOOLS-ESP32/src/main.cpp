@@ -1,11 +1,11 @@
 /**
  * @brief Main class
- * 
+ *
  * Main long description.....
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -33,7 +33,7 @@
 #define SS_PIN_1 4  // ESP32 pin GPIO4
 #define SS_PIN_2 5  // ESP32 pin GPIO5
 #define SS_PIN_3 15 // ESP32 pin GPI15
-#define RST_PIN 27 // ESP32 pin GPIO27
+#define RST_PIN 27  // ESP32 pin GPIO27
 
 #define SENSORS_NUMBER 3
 
@@ -61,7 +61,7 @@ String mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl
 String function, sensor_n;
 
 /**
- * 
+ *
  */
 AsyncWebServer server(80);
 Preferences preferences;
@@ -77,61 +77,59 @@ NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
 
-Spool* spool[3];
-
+Spool *spool[3];
 
 /**
  * initWifi
- * 
+ *
  * @brief Initializes WiFi connection
  */
 bool initWiFi()
 {
-  preferences.begin("nfc-bobine", false);
-  ssid = preferences.getString("ssid", "");
-  pass = preferences.getString("pass", "");
-  ip = preferences.getString("ip", "");
-  gateway = preferences.getString("gateway", "");
+    preferences.begin("nfc-bobine", false);
+    ssid = preferences.getString("ssid", "");
+    pass = preferences.getString("pass", "");
+    ip = preferences.getString("ip", "");
+    gateway = preferences.getString("gateway", "");
 
-  if (ssid == "" || ip == "")
-  {
-    Serial.println("Undefined SSID or IP address.");
-    return false;
-  }
-
-  WiFi.mode(WIFI_STA);
-  localIP.fromString(ip.c_str());
-  localGateway.fromString(gateway.c_str());
-
-  if (!WiFi.config(localIP, localGateway, subnet))
-  {
-    Serial.println("STA Failed to configure");
-    return false;
-  }
-  WiFi.begin(ssid.c_str(), pass.c_str());
-  Serial.println("Connecting to WiFi...");
-
-  unsigned long currentMillis = millis();
-  previousMillis = currentMillis;
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    currentMillis = millis();
-    if (currentMillis - previousMillis >= interval)
+    if (ssid == "" || ip == "")
     {
-      Serial.println("Failed to connect.");
-      return false;
+        Serial.println("Undefined SSID or IP address.");
+        return false;
     }
-  }
 
-  Serial.println(WiFi.localIP());
-  return true;
+    WiFi.mode(WIFI_STA);
+    localIP.fromString(ip.c_str());
+    localGateway.fromString(gateway.c_str());
+
+    if (!WiFi.config(localIP, localGateway, subnet))
+    {
+        Serial.println("STA Failed to configure");
+        return false;
+    }
+    WiFi.begin(ssid.c_str(), pass.c_str());
+    Serial.println("Connecting to WiFi...");
+
+    unsigned long currentMillis = millis();
+    previousMillis = currentMillis;
+
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        currentMillis = millis();
+        if (currentMillis - previousMillis >= interval)
+        {
+            Serial.println("Failed to connect.");
+            return false;
+        }
+    }
+
+    Serial.println(WiFi.localIP());
+    return true;
 }
-
 
 /**
  * setup
- * 
+ *
  * @brief General setup
  */
 void setup()
@@ -146,7 +144,7 @@ void setup()
         Serial.println("WiFi init!");
         def_pages_ws();
         delay(3000);
-        }
+    }
     else
     {
         // setup Access Point
@@ -164,17 +162,17 @@ void setup()
     mfrc522_1.PCD_Init();
     mfrc522_2.PCD_Init();
     mfrc522_3.PCD_Init();
-    
+
     delay(1000);
-    
+
     nfc_1.begin();
     nfc_2.begin();
     nfc_3.begin();
-    
+
     /*tag_read_init(0, spool[0]);
-    tag_read_init(1, spool[1]); 
+    tag_read_init(1, spool[1]);
     tag_read_init(2, spool[2]);
-    
+
     spool_print(0, spool[0]);
     spool_print(1, spool[1]);
     spool_print(2, spool[2]);*/
@@ -189,7 +187,7 @@ void setup()
 
 /**
  * loop
- * 
+ *
  * @brief Runtime Loop
  */
 void loop()

@@ -1,11 +1,11 @@
 /**
  * @brief Tag Format
- * 
+ *
  * Tag Format function format tag to NDEF
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 

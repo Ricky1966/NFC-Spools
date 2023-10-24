@@ -1,11 +1,11 @@
 /**
  * @brief Tag Erase
- * 
+ *
  * Tag Erase function erase tag to zero
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * External variables 
+ * External variables
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -22,7 +22,7 @@ extern NfcAdapter nfc_1;
 extern NfcAdapter nfc_2;
 extern NfcAdapter nfc_3;
 
-/** 
+/**
  * tag_erase
  * @brief   Tag eraser
  */

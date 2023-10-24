@@ -1,11 +1,11 @@
 /**
- * @brief Tag Clear 
- * 
+ * @brief Tag Clear
+ *
  * Tag Clear function clean tag to zero
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 

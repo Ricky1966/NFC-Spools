@@ -1,11 +1,11 @@
 /**
  * @brief Spool class
- * 
+ *
  * FileSystem initializationof filesystem and read/write preference
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -13,7 +13,7 @@
 #define _INIT_FS_H
 
 /**
- * 
+ *
  */
 #include <Arduino.h>
 #include <WiFi.h>

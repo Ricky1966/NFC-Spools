@@ -1,11 +1,11 @@
 /**
- * @brief Tag Clean 
- * 
+ * @brief Tag Clean
+ *
  * Tag Clear function clean tag to zero
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * External variables 
+ * External variables
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;

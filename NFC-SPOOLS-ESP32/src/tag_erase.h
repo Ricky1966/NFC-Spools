@@ -1,11 +1,11 @@
 /**
- * @brief Tag Erase 
- * 
+ * @brief Tag Erase
+ *
  * Tag Erase function erase tag to zero
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 

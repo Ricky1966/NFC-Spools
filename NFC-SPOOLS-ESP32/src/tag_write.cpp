@@ -1,11 +1,11 @@
 /**
  * @brief Tag Write
- * 
+ *
  * Tag Write function allows you to rewrite tag data
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -13,7 +13,7 @@
 #include "spool.h"
 
 /**
- * External variables 
+ * External variables
  */
 extern MFRC522 mfrc522_1;
 extern MFRC522 mfrc522_2;
@@ -25,12 +25,11 @@ extern char uid[30], tag_msg[100];
 extern String uid_str, mat_type, mat_color, spool_lenght, spool_weigth, temp_bed, temp_ext, t_fl_b, t_fl_e;
 extern Spool spool[];
 
-
 /**
  * tag_write
  * @brief write new values into a tag
- * 
- * @param sensor    sensor  number of sensor 
+ *
+ * @param sensor    sensor  number of sensor
  */
 bool tag_write(int sensor)
 {

@@ -1,11 +1,11 @@
 /**
  * @brief Tag Read
- * 
+ *
  * Tag Read function allows you to read tag data
- * 
+ *
  * @author Ricky1966
  * @author simonegallina (supervisor)
- * 
+ *
  * @version 1.0
  */
 
@@ -22,9 +22,9 @@
 #define SS_PIN_3 15   // ESP32 pin GPIO2
 #define MAX_SENSORS 3 // max number of sensors
 
-//void loader(int, String);
-void loader(int, String, Spool*);
+// void loader(int, String);
+void loader(int, String, Spool *);
 bool tag_read(int);
-bool tag_read_init(int, Spool*);
+bool tag_read_init(int, Spool *);
 
 #endif
