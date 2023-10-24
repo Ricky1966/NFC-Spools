@@ -29,6 +29,15 @@ Spool::Spool(String uid_str)
 /**
  * 
  */
+void Spool::put_uid_str(String uid)
+{
+    uid_str = uid;
+}
+
+
+/**
+ * 
+ */
 String Spool::get_spool_uid()
 {
     return uid_str;
