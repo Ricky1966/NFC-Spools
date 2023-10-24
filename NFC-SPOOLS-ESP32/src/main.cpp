@@ -66,12 +66,15 @@ Preferences preferences;
 IPAddress localIP;
 IPAddress localGateway;
 IPAddress subnet(255, 255, 0, 0);
+
 MFRC522 mfrc522_1(SS_PIN_1, RST_PIN);
 MFRC522 mfrc522_2(SS_PIN_2, RST_PIN);
 MFRC522 mfrc522_3(SS_PIN_3, RST_PIN);
+
 NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
+
 Spool spool[3] = {} ;
 
 
@@ -159,13 +162,17 @@ void setup()
   mfrc522_1.PCD_Init();
   mfrc522_2.PCD_Init();
   mfrc522_3.PCD_Init();
+    
   delay(1000);
+    
   nfc_1.begin();
   nfc_2.begin();
   nfc_3.begin();
+    
   tag_read_init(0, spool+0);
   tag_read_init(1, spool+1); 
-  tag_read_init(2, spool+2); 
+  tag_read_init(2, spool+2);
+    
   spool_print(0, spool+0);
   spool_print(1, spool+1);
   spool_print(2, spool+2);
