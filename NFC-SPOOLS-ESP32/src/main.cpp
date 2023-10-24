@@ -35,6 +35,8 @@
 #define SS_PIN_3 15 // ESP32 pin GPI15
 #define RST_PIN 27 // ESP32 pin GPIO27
 
+#define SENSORS_NUMBER 3
+
 const char *PARAM_INPUT_1 = "ssid";
 const char *PARAM_INPUT_2 = "pass";
 const char *PARAM_INPUT_3 = "ip";
@@ -75,7 +77,7 @@ NfcAdapter nfc_1 = NfcAdapter(&mfrc522_1);
 NfcAdapter nfc_2 = NfcAdapter(&mfrc522_2);
 NfcAdapter nfc_3 = NfcAdapter(&mfrc522_3);
 
-Spool spool[3] = {} ;
+Spool* spool[3];
 
 
 /**
@@ -134,48 +136,55 @@ bool initWiFi()
  */
 void setup()
 {
-  Serial.begin(115200);
+    Serial.begin(115200);
 
-  initLittleFS();
+    initLittleFS();
 
-  if (initWiFi())
-  {
-    // setup Web Server
-    Serial.println("WiFi init!");
-    def_pages_ws();
-    delay(3000);
-  }
-  else
-  {
-    // setup Access Point
-    Serial.println("Setting AP (Access Point)");
-    WiFi.softAP("ESP-WIFI-MANAGER", NULL);
+    if (initWiFi())
+    {
+        // setup Web Server
+        Serial.println("WiFi init!");
+        def_pages_ws();
+        delay(3000);
+        }
+    else
+    {
+        // setup Access Point
+        Serial.println("Setting AP (Access Point)");
+        WiFi.softAP("ESP-WIFI-MANAGER", NULL);
 
-    IPAddress IP = WiFi.softAPIP();
-    Serial.print("AP IP address: ");
-    Serial.println(IP);
-    def_pages_ap();
-  }
+        IPAddress IP = WiFi.softAPIP();
+        Serial.print("AP IP address: ");
+        Serial.println(IP);
+        def_pages_ap();
+    }
 
-  server.begin();
-  SPI.begin();
-  mfrc522_1.PCD_Init();
-  mfrc522_2.PCD_Init();
-  mfrc522_3.PCD_Init();
+    server.begin();
+    SPI.begin();
+    mfrc522_1.PCD_Init();
+    mfrc522_2.PCD_Init();
+    mfrc522_3.PCD_Init();
     
-  delay(1000);
+    delay(1000);
     
-  nfc_1.begin();
-  nfc_2.begin();
-  nfc_3.begin();
+    nfc_1.begin();
+    nfc_2.begin();
+    nfc_3.begin();
     
-  tag_read_init(0, spool+0);
-  tag_read_init(1, spool+1); 
-  tag_read_init(2, spool+2);
+    /*tag_read_init(0, spool[0]);
+    tag_read_init(1, spool[1]); 
+    tag_read_init(2, spool[2]);
     
-  spool_print(0, spool+0);
-  spool_print(1, spool+1);
-  spool_print(2, spool+2);
+    spool_print(0, spool[0]);
+    spool_print(1, spool[1]);
+    spool_print(2, spool[2]);*/
+
+    for (uint8_t i; i < SENSORS_NUMBER; i++)
+    {
+        spool[i] = new Spool();
+        tag_read_init(i, spool[i]);
+        spool_print(i, spool[i]);
+    }
 }
 
 /**
