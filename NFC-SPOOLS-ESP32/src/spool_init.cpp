@@ -12,11 +12,6 @@
 #include "spool.h"
 #include "spool_init.h"
 
-/**
- * External variables
- */
-extern Spool spool[];
-
 bool spool_print(int sensor, Spool* spool){
 
       Serial.println("Sensore :"+sensor);
