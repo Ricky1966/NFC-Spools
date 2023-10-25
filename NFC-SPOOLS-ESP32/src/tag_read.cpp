@@ -201,7 +201,7 @@ bool tag_read_init(int sensor, Spool *spool)
         {
             NfcTag tag = active_nfc->read();
             uid_str = tag.getUidString();
-            spool = new Spool(uid_str);
+            spool->put_uid_str(uid_str);
             Serial.println(uid_str);
             uid_str.toCharArray(uid, uid_str.length() + 1);
             if (tag.hasNdefMessage())
@@ -219,17 +219,16 @@ bool tag_read_init(int sensor, Spool *spool)
                         tag_msg_str += (char)payload[c];
                     }
                     tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-                    // Serial.println(tag_msg_str);
+                    //Serial.println(tag_msg_str);
                     loader(i, tag_msg_str, spool);
                 }
             }
-            Serial.println("Oggetto creato");
-            Serial.println(spool->get_spool_uid());
-            Serial.println(spool->get_mat_type());
-            Serial.println(spool->get_mat_color());
+            //Serial.println("Oggetto creato");
+            //Serial.println(spool->get_spool_uid());
+            //Serial.println(spool->get_mat_type());
+            //Serial.println(spool->get_mat_color());
             return true;
         }
     }
-
     return false;
 }

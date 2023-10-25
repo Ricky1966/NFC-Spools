@@ -14,7 +14,7 @@
 
 bool spool_print(int sensor, Spool *spool)
 {
-    Serial.println("Sensore :" + sensor);
+    Serial.println("Sensore");
     Serial.println(spool->get_spool_uid());
     Serial.println(spool->get_mat_type());
     Serial.println(spool->get_mat_color());
