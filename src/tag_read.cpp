@@ -6,7 +6,7 @@
  * @author Ricky1966
  * @author simonegallina (supervisor)
  *
- * @version 1.0
+ * @version 2.0
  */
 
 #include "tag_read.h"
