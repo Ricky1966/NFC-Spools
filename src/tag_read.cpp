@@ -171,7 +171,8 @@ bool tag_read_init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint
         NfcTag tag = active_nfc->read();
         uid_str = tag.getUidString();
         Serial.println(uid_str);
-        uid_str.toCharArray(uid, uid_str.length() + 1);
+        spool->setUid(uid_str);
+        //uid_str.toCharArray(uid, uid_str.length() + 1);
 
         if (tag.hasNdefMessage())
         {
