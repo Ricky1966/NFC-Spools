@@ -78,7 +78,7 @@ IPAddress subnet(255, 255, 0, 0);
 
 MFRC522* MFRCs[SENSORS_NUMBER];
 NfcAdapter* NFCs[SENSORS_NUMBER];
-Spool *spools[3];
+Spool *spools[SENSORS_NUMBER];
 
 
 /**
@@ -177,9 +177,9 @@ void setup()
      */
     for (uint8_t i = 0; i < SENSORS_NUMBER; i++)
     {
-        MFRCs[i]->PCD_Init();
         MFRCs[i] = new MFRC522(SS_PINs[i], RST_PIN);
         NFCs[i] = new NfcAdapter(MFRCs[i]);
+        MFRCs[i]->PCD_Init();
         spools[i] = new Spool(i);
         tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
         spools[i]->printToSerial(&Serial);

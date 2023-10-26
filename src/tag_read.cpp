@@ -127,10 +127,10 @@ bool tag_read(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t s
                 loader(i, tag_msg_str, spool);
             }
         }
-        Serial.print("Oggetto");
-        Serial.println("");
-        Serial.println(spool->getLength());
-        Serial.println(spool->getWeight());
+        //Serial.print("Oggetto");
+        //Serial.println("");
+        //Serial.println(spool->getLength());
+        //Serial.println(spool->getWeight());
         return true;
     }
 
