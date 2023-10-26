@@ -181,8 +181,8 @@ void setup()
         NFCs[i] = new NfcAdapter(MFRCs[i]);
         MFRCs[i]->PCD_Init();
         spools[i] = new Spool(i);
-        tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
-        spools[i]->printToSerial(&Serial);
+        //tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
+        //spools[i]->printToSerial(&Serial);
     }
 }
 
@@ -194,4 +194,14 @@ void setup()
  */
 void loop()
 {
+    /**
+     * Sensors check
+     */
+    for (uint8_t i = 0; i < SENSORS_NUMBER; i++)
+    {
+        tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
+        spools[i]->printToSerial(&Serial);
+    }
+
+    delay(1000);
 }
