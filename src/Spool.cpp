@@ -337,7 +337,8 @@ void Spool::printToSerial(Stream* out)
     if (out != NULL)
     {
         out->println("*** Sensor begin ***");
-        out->println("Sensore :" + number);
+        out->print("Sensore :");
+        out->println(number);
         out->println(getUid());
         out->println(getMatType());
         out->println(getMatColor());
