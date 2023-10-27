@@ -11,7 +11,8 @@
 #define _SPOOL_H
 
 #include <Arduino.h>
-
+#include <MFRC522.h>
+#include <NfcAdapter.h>
 
 /**
  * Spool
@@ -36,7 +37,10 @@ class Spool
         Spool();
         Spool(String uid_str);
         Spool(uint8_t);
-        void init();
+        Spool(uint8_t, NfcAdapter*, uint8_t*, uint8_t);
+        void loader(int, String, Spool *);
+        //void init();
+        void init(NfcAdapter*, uint8_t*, uint8_t);
         void setNumber(uint8_t);
         uint8_t getNumber();
         void setUid(String);

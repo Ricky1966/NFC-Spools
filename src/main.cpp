@@ -22,9 +22,10 @@
 
 #include "Spool.h"
 
-#include "tag_read.h"
+
 /* ************************************* temporary disabled ************************/
-/*#include "tag_clean.h"
+/*#include "tag_read.h"
+#include "tag_clean.h"
 #include "tag_erase.h"
 #include "tag_format.h"
 #include "tag_write.h"
@@ -180,8 +181,9 @@ void setup()
         MFRCs[i] = new MFRC522(SS_PINs[i], RST_PIN);
         NFCs[i] = new NfcAdapter(MFRCs[i]);
         MFRCs[i]->PCD_Init();
-        spools[i] = new Spool(i);
-        tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
+        //spools[i] = new Spool(i);
+        spools[i] = new Spool(i, NFCs[i], SS_PINs, SENSORS_NUMBER);
+        //tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
         spools[i]->printToSerial(&Serial);
     }
 }
