@@ -18,7 +18,7 @@
  */
 Spool::Spool()
 {
-    init();
+    //init();
 }
 
 
@@ -31,7 +31,7 @@ Spool::Spool()
  */
 Spool::Spool(String uid)
 {
-    init();
+    //init();
     uid_str = uid;
 }
 
@@ -45,7 +45,7 @@ Spool::Spool(String uid)
  */
 Spool::Spool(uint8_t m)
 {
-    init();
+    //init();
     number = m;
 }
 
@@ -121,7 +121,7 @@ void Spool::init()
  * @param String  tag_msg_str Contains message read from tag
  * @param Spool*  spool       Active spool
  */
-void loader(int i, String tag_msg_str, Spool *spool)
+void Spool::loader(int i, String tag_msg_str, Spool *spool)
 {
     switch (i)
     {
