@@ -174,7 +174,8 @@ void loader(int i, String tag_msg_str, Spool *spool)
  *
  * @return  bool        True on success, false otherwise
  */
-void init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
+//void init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
+void init(NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
 {
     char tag_msg[100];
     /**
@@ -186,17 +187,20 @@ void init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_
     }
 
     /* Activate only the requested RFID reader */
-    digitalWrite(pin_list[spool->getNumber()], LOW);
+    //digitalWrite(pin_list[spool->getNumber()], LOW);
+    digitalWrite(pin_list[this->getNumber()], LOW);
 
     Serial.print("Sensore ");
-    Serial.println(spool->getNumber());
+    //Serial.println(spool->getNumber());
+    Serial.println(this->getNumber());
 
     if (active_nfc->tagPresent())
     {
         NfcTag tag = active_nfc->read();
         String uid_str = tag.getUidString();
         Serial.println(uid_str);
-        spool->setUid(uid_str);
+        //spool->setUid(uid_str);
+        this->setUid(uid_str);
         //uid_str.toCharArray(uid, uid_str.length() + 1);
 
         if (tag.hasNdefMessage())
@@ -216,14 +220,18 @@ void init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_
                 }
         
                 tag_msg_str.toCharArray(tag_msg, tag_msg_str.length() + 1);
-                loader(i, tag_msg_str, spool);
+                //loader(i, tag_msg_str, spool);
+                loader(i, tag_msg_str, this);
             }
         }
 
         Serial.println("Oggetto creato");
-        Serial.println(spool->getUid());
-        Serial.println(spool->getMatType());
-        Serial.println(spool->getMatColor());
+        //Serial.println(spool->getUid());
+        //Serial.println(spool->getMatType());
+        //Serial.println(spool->getMatColor());
+        Serial.println(this->getUid());
+        Serial.println(this->getMatType());
+        Serial.println(this->getMatColor());
     }
 }
 
