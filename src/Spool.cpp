@@ -175,7 +175,9 @@ void loader(int i, String tag_msg_str, Spool *spool)
  * @return  bool        True on success, false otherwise
  */
 //void init(Spool* spool, NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
-void init(NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
+
+/* Senza aggiungere Spool::, la funzione init() non è considerata dentro alla classe */
+void Spool::init(NfcAdapter* active_nfc, uint8_t* pin_list, uint8_t sens_num)
 {
     char tag_msg[100];
     /**
