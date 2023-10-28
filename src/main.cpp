@@ -185,6 +185,7 @@ void setup()
         spools[i] = new Spool(i, NFCs[i], SS_PINs, SENSORS_NUMBER);
         //tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
         spools[i]->printToSerial(&Serial);
+        delay(2000);
     }
 }
 
@@ -199,7 +200,7 @@ void loop()
     /**
      * Sensors check
      */
-    
+    /*
     for (uint8_t i = 0; i < SENSORS_NUMBER; i++)
     {
         //tag_read_init(spools[i], NFCs[i], SS_PINs, SENSORS_NUMBER);
@@ -207,5 +208,5 @@ void loop()
     }
 
     delay(1000);
-    
+    */
 }
