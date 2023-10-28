@@ -20,6 +20,7 @@
 #include <ArduinoJson.h>
 
 #include "Spool.h"
+#include "init_fs.h"
 
 
 /* ************************************* temporary disabled ************************/
@@ -143,7 +144,7 @@ void setup()
     Serial.begin(115200);
 
     /* ************************************* temporary disabled ************************/
-    //initLittleFS();
+    initLittleFS();
 
     if (initWiFi())
     {
