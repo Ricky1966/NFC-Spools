@@ -18,7 +18,6 @@
 #include <NfcAdapter.h>
 #include <Preferences.h>
 #include <ArduinoJson.h>
-#include <Update.h>
 
 #include "Spool.h"
 
