@@ -39,7 +39,7 @@ class Spool
         Spool(uint8_t);
         Spool(uint8_t, NfcAdapter*, uint8_t*, uint8_t);
         void loader(int, String, Spool *);
-        //void init();
+        void init();
         void init(NfcAdapter*, uint8_t*, uint8_t);
         void setNumber(uint8_t);
         uint8_t getNumber();

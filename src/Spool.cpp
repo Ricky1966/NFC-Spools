@@ -18,7 +18,7 @@
  */
 Spool::Spool()
 {
-    //init();
+    init();
 }
 
 
@@ -31,7 +31,7 @@ Spool::Spool()
  */
 Spool::Spool(String uid)
 {
-    //init();
+    init();
     uid_str = uid;
 }
 
@@ -45,7 +45,7 @@ Spool::Spool(String uid)
  */
 Spool::Spool(uint8_t m)
 {
-    //init();
+    init();
     number = m;
 }
 
@@ -96,7 +96,7 @@ uint8_t Spool::getNumber()
  * init
  * 
  * @brief   Initializes the object properties
- 
+ */
 void Spool::init()
 {
     uid_str = "";
@@ -109,7 +109,7 @@ void Spool::init()
     t_fl_b = "";
     t_fl_e = "";
 }
-*/
+
 
 
 /**
