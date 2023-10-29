@@ -21,7 +21,7 @@
 
 #include "Spool.h"
 #include "init_fs.h"
-#include "def_pages.h"
+
 
 /* ************************************* temporary disabled ************************/
 /*#include "tag_read.h"
@@ -30,6 +30,7 @@
 #include "tag_format.h"
 #include "tag_write.h"
 #include "parser_json.h"
+#include "def_pages.h"
 #include "init_fs.h"*/
 
 
