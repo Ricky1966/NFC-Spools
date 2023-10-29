@@ -7,6 +7,8 @@
  * @version 2.0
  */
 
+#include "def_pages_h"
+
 /**
  * setup_page()
  * 
