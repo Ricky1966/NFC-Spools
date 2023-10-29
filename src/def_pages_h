@@ -1,10 +1,8 @@
 /**
- * @brief Web Server
+ * @brief   Pages definition for AP and Web Server
  *
- * Web Server pages definition.....
- *
- * @author Ricky1966
- * @author simonegallina (supervisor)
+ * @author  Ricky1966
+ * @author  simonegallina (supervisor)
  *
  * @version 2.0
  */
@@ -12,6 +10,48 @@
 #ifndef _DEF_PAGES_H
 #define _DEF_PAGES_H
 
+/**
+ *
+ */
+#include <Arduino.h>
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h>
+#include <AsyncTCP.h>
 
+/**
+ * setup_page()
+ * 
+ * @brief   definition of setup page 
+ */
+void setup_page();
+
+/**
+ * index_page()
+ * 
+ * @brief   definition of index page 
+ */
+void index_page();
+
+/**
+ * ota_page()
+ * 
+ * @brief   definition of index page 
+ */
+void ota_page();
+
+/**
+ * not_found_page()
+ * 
+ * @brief   definition of not found page error 404
+ */
+void notFound_page(AsyncWebServerRequest *);
+
+/**
+ * processor() 
+ * 
+ * @brief   page parser for placeholder
+ * 
+ */
+String processor(const String &);
 
 #endif

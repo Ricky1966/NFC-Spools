@@ -1,8 +1,8 @@
 /**
- * @brief Spool class
+ * @brief   Spool class
  * 
- * @author Ricky1966
- * @author simonegallina
+ * @author  Ricky1966
+ * @author  simonegallina
  * 
  * @version 2.0
  */

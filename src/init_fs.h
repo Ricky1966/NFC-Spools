@@ -1,8 +1,6 @@
 /**
  * @brief Spool class
  *
- * FileSystem initializationof filesystem and read/write preference
- *
  * @author Ricky1966
  * @author simonegallina (supervisor)
  *
