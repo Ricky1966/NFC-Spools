@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "wifi.h": "c"
+        "wifi.h": "c",
+        "ESPAsyncWebServer.h" : "c",
+        "AsyncTCP.h" : "c"
     }
 }
